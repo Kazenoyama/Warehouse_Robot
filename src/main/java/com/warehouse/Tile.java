@@ -29,6 +29,4 @@ public class Tile {
         return nextTile.getType() == 0;
     }
 
-
-    
 }

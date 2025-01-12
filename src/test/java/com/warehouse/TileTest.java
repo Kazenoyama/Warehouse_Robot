@@ -60,5 +60,30 @@ public class TileTest {
         assertFalse(tile.canIWalkNextTile(tile.getNeighbour(1)));
         assertFalse(tile.canIWalkNextTile(tile.getNeighbour(2)));
     }
+
+    @Test
+    public void TwoTwoMapTileShouldKnowNeighbour(){
+        Tile leftDownTile = new Tile(0);
+        Tile rightDownTile = new Tile(2);
+        Tile leftUpTile = new Tile(1);
+        Tile rightUpTile = new Tile(0);
+
+        leftDownTile.setNeighbour(2, rightDownTile);
+        leftDownTile.setNeighbour(1, leftUpTile);
+        leftUpTile.setNeighbour(2, rightUpTile);
+        rightDownTile.setNeighbour(1, rightUpTile);
+
+        assertEquals(leftDownTile, rightDownTile.getNeighbour(0));
+        assertEquals(leftDownTile, leftUpTile.getNeighbour(3));
+
+        assertEquals(leftUpTile, leftDownTile.getNeighbour(1));
+        assertEquals(leftUpTile, rightUpTile.getNeighbour(0));
+
+        assertEquals(rightUpTile, leftUpTile.getNeighbour(2));
+        assertEquals(rightUpTile, rightDownTile.getNeighbour(1));
+
+        assertEquals(rightDownTile, rightUpTile.getNeighbour(3));
+        assertEquals(rightDownTile, leftDownTile.getNeighbour(2));
+    }
     
 }
