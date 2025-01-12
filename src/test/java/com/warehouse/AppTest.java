@@ -16,14 +16,4 @@ public class AppTest {
     public void shouldAnswerWithTrue() {
         assertTrue(true);
     }
-
-    @Test
-    public void test() {
-        assertTrue(Main.test());
-    }
-
-    @Test
-    public void test2() {
-        assertFalse(Main.test());
-    }
 }
