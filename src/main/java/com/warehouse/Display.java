@@ -9,11 +9,13 @@ public class Display extends JPanel {
     private int row;
     private int col;
     private Map<Point, Color> cellColors;
+    private int sizeOfCell;
 
-    public Display(WarehouseMap map) {
+    public Display(WarehouseMap map, int sizeOfCell) {
         this.row = map.getSizeX();
         this.col = map.getSizeY();
         this.cellColors = new HashMap<>();
+        this.sizeOfCell = sizeOfCell;
     }
 
     @Override
@@ -26,10 +28,10 @@ public class Display extends JPanel {
                 Color color = cellColors.get(new Point(j, i));
                 if(color != null){
                     g.setColor(color);
-                    g.fillRect(j * 50, i * 50, 50, 50);
+                    g.fillRect(j * sizeOfCell, i * sizeOfCell, sizeOfCell, sizeOfCell);
                 }
                 g.setColor(Color.BLACK);
-                g.drawRect(j * 50, i * 50, 50, 50);
+                g.drawRect(j * sizeOfCell, i * sizeOfCell, sizeOfCell, sizeOfCell);
             }
         }
     }

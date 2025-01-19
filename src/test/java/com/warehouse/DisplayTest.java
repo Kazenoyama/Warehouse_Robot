@@ -9,43 +9,44 @@ import java.awt.*;
 
 public class DisplayTest {
 
-    // @Test
-    // public void isTheDisplayShowing() throws InterruptedException {
-    //     JFrame frame = new JFrame("Warehouse isTheDisplayShowing");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     Maps map = new Maps(5, 5);
+    @Test
+    public void isTheDisplayShowing() throws InterruptedException {
+        JFrame frame = new JFrame("Warehouse isTheDisplayShowing");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        WarehouseMap map = new WarehouseMap(5, 5);
 
-    //     Display display = new Display(map);
+        Display display = new Display(map, 50);
 
-    //     frame.add(display);
-    //     frame.setSize(500, 500);
-    //     frame.setVisible(true);
+        frame.add(display);
+        frame.setSize(500, 500);
+        frame.setVisible(true);
 
-    //     assertTrue(display.isVisible());
+        assertTrue(display.isVisible());
 
-    //     Thread.sleep(2000);
+        Thread.sleep(2000);
 
-        
-    // }
+    }
 
-    // @Test
-    // public void isTheDisplayShowingWithColor() throws InterruptedException {
-    //     JFrame frame = new JFrame("Warehouse isTheDisplayShowingWithColor");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    @Test
+    public void isTheDisplayShowingWithColor() throws InterruptedException {
+        JFrame frame = new JFrame("Warehouse isTheDisplayShowingWithColor");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    //     Display display = new Display(new Map(5,5));
+        WarehouseMap map = new WarehouseMap(6, 6);
 
-    //     frame.add(display);
-    //     frame.setSize(500, 500);
-    //     frame.setVisible(true);
+        Display display = new Display(map, 50);
 
-    //     assertTrue(display.isVisible());
+        frame.add(display);
+        frame.setSize(500, 500);
+        frame.setVisible(true);
 
-    //     // display.setCellColor(2, 3, Color.RED);
+        assertTrue(display.isVisible());
 
-    //     Thread.sleep(2000);
+        display.setCellColor(0,0, Color.RED);
 
-    // }
+        Thread.sleep(2000);
+
+    }
 
     // @Test
     // public void isTheDisplayShowingWithColorAndClear() throws InterruptedException {
