@@ -3,9 +3,9 @@ package com.warehouse;
 public class Tile {
 
     private Tile[] neighbour = new Tile[4];
-    public int typeofTile;
+    public TileEnum typeofTile;
 
-    public Tile(int type){
+    public Tile(TileEnum type){
         this.typeofTile = type;
         for (int i = 0; i < 4; i++) {
             neighbour[i] = null;
@@ -16,7 +16,7 @@ public class Tile {
         return neighbour[direction];
     }
 
-    public int getType(){
+    public TileEnum getType(){
         return typeofTile;
     }
 
@@ -26,7 +26,7 @@ public class Tile {
     }
 
     public boolean canIWalkNextTile(Tile nextTile){
-        return nextTile.getType() == 0;
+        return nextTile.getType() == TileEnum.PATH;
     }
 
 }
