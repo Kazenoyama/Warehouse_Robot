@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MapTest {
     @Test
     public void atInitMap_ShouldBeFullOfPathTileAndWithTheCorrectSize(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         int tileCounter = 0;
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++){
@@ -19,7 +19,7 @@ public class MapTest {
         }
         assertEquals(100, tileCounter);
 
-        Map map2 = new Map(20, 20);
+        WarehouseMap map2 = new WarehouseMap(20, 20);
         tileCounter = 0;
         for (int i = 0; i < 20; i++){
             for (int j = 0; j < 20; j++){
@@ -32,14 +32,14 @@ public class MapTest {
 
     @Test
     public void whenATyleTypeIsChanged_ShouldBeChanged(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         map.changeTyleType(0, 0, TileEnum.SHELF);
         assertEquals(TileEnum.SHELF, map.getTyleType(0, 0));
     }
 
     @Test
     public void whenChangingTileTypeOfARow_ShouldChangeAllTilesOfThatRow(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         Row row = new Row(new Pos(0, 0), new Pos(0, 9));
         map.changeTyleTipeOfRow(row, TileEnum.SHELF);
         for (int i = 0; i < 10; i++){
@@ -51,5 +51,16 @@ public class MapTest {
         for (int i = 0; i < 10; i++){
             assertEquals(TileEnum.SHELF, map.getTyleType(i, 0));
         }
+    }
+
+    @Test
+    public void getTheCorrectSizeXandY(){
+        WarehouseMap map = new WarehouseMap(10, 10);
+        assertEquals(10, map.getSizeX());
+        assertEquals(10, map.getSizeY());
+
+        WarehouseMap map2 = new WarehouseMap(20, 20);
+        assertEquals(20, map2.getSizeX());
+        assertEquals(20, map2.getSizeY());
     }
 }

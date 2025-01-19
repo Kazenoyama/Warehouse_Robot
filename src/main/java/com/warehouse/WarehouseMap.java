@@ -2,11 +2,11 @@ package com.warehouse;
 
 import java.util.ArrayList;
 
-public class Map {
+public class WarehouseMap {
 
     private Tile[][] map;
 
-    Map(int lengthAxeX, int lengthAxeY) {
+    WarehouseMap(int lengthAxeX, int lengthAxeY) {
         map = new Tile[lengthAxeX][lengthAxeY];
         for (int i = 0; i < lengthAxeX; i++) {
             for (int j = 0; j < lengthAxeY; j++) {
@@ -48,5 +48,13 @@ public class Map {
     private boolean isPositionValid(Pos pos) {
         return  pos.x >= 0 && pos.x < map.length &&
                 pos.y >= 0 && pos.y < map[0].length;
+    }
+
+    public int getSizeX() {
+        return map.length;
+    }
+
+    public int getSizeY() {
+        return map[0].length;
     }
 }

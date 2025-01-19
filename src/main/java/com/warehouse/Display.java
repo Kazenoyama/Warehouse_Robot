@@ -10,9 +10,9 @@ public class Display extends JPanel {
     private int col;
     private Map<Point, Color> cellColors;
 
-    public Display(int row, int col) {
-        this.row = row;
-        this.col = col;
+    public Display(WarehouseMap map) {
+        this.row = map.getSizeX();
+        this.col = map.getSizeY();
         this.cellColors = new HashMap<>();
     }
 
@@ -44,21 +44,21 @@ public class Display extends JPanel {
         repaint();
     }
 
-    public Color chooseColorDependingTile(Tile tile){
-        switch(tile.getType()){
-            case 0: 
-                return Color.WHITE;
-            case 1:
-                return Color.GRAY;
-            case 2:
-                return Color.BLACK;
-            case 3:
-                return Color.YELLOW;
-            case 4:
-                return Color.GREEN;
-            default:
-                return Color.WHITE;
-        }
-    }
+    // public Color chooseColorDependingTile(Tile tile){
+    //     switch(tile.getType()){
+    //         case 0: 
+    //             return Color.WHITE;
+    //         case 1:
+    //             return Color.GRAY;
+    //         case 2:
+    //             return Color.BLACK;
+    //         case 3:
+    //             return Color.YELLOW;
+    //         case 4:
+    //             return Color.GREEN;
+    //         default:
+    //             return Color.WHITE;
+    //     }
+    // }
 
 }
