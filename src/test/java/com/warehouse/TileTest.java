@@ -7,13 +7,13 @@ public class TileTest {
 
     @Test
     public void tileShouldBeTypePath(){
-        Tile tile = new Tile(0);
-        assertEquals(0, tile.getType());
+        Tile tile = new Tile(TileEnum.PATH);
+        assertEquals(TileEnum.PATH, tile.getType());
     }
 
     @Test
     public void tileNeighbourShouldBeEmptyAtInit(){
-        Tile tile = new Tile(0);
+        Tile tile = new Tile(TileEnum.PATH);
         for (int i = 0; i < 4; i++) {
             assertNull(tile.getNeighbour(i));
         }
@@ -21,8 +21,8 @@ public class TileTest {
 
     @Test
     public void tileShouldKnowNeighbour_NeighbourShouldKnowCurrentTile(){
-        Tile tile = new Tile(0);
-        Tile neighbour = new Tile(1);
+        Tile tile = new Tile(TileEnum.PATH);
+        Tile neighbour = new Tile(TileEnum.SHELF);
         tile.setNeighbour(0, neighbour);
         
         assertEquals(neighbour, tile.getNeighbour(0));
@@ -30,10 +30,10 @@ public class TileTest {
 
     @Test
     public void canIAccessTileNeighbour(){
-        Tile tile = new Tile(0);
-        Tile pathTile = new Tile(0);
-        Tile shelfTile = new Tile(1);
-        Tile wallTile = new Tile(2);
+        Tile tile = new Tile(TileEnum.PATH);
+        Tile pathTile = new Tile(TileEnum.PATH);
+        Tile shelfTile = new Tile(TileEnum.SHELF);
+        Tile wallTile = new Tile(TileEnum.STORAGE);
         tile.setNeighbour(0, pathTile);
         tile.setNeighbour(1, wallTile);
         tile.setNeighbour(2, shelfTile);
@@ -44,10 +44,10 @@ public class TileTest {
 
     @Test
     public void TwobyTwoMapTileShouldKnowNeighbour(){
-        Tile leftDownTile = new Tile(0);
-        Tile rightDownTile = new Tile(2);
-        Tile leftUpTile = new Tile(1);
-        Tile rightUpTile = new Tile(0);
+        Tile leftDownTile = new Tile(TileEnum.PATH);
+        Tile rightDownTile = new Tile(TileEnum.STORAGE);
+        Tile leftUpTile = new Tile(TileEnum.SHELF);
+        Tile rightUpTile = new Tile(TileEnum.PATH);
 
         leftDownTile.setNeighbour(2, rightDownTile);
         leftDownTile.setNeighbour(1, leftUpTile);
