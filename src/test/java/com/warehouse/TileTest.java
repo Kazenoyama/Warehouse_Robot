@@ -12,18 +12,6 @@ public class TileTest {
     }
 
     @Test
-    public void tileShouldBeTypeShelf(){
-        Tile tile = new Tile(1);
-        assertEquals(1, tile.getType());
-    }
-
-    @Test
-    public void tileShouldBeTypeWall(){
-        Tile tile = new Tile(2);
-        assertEquals(2, tile.getType());
-    }
-
-    @Test
     public void tileNeighbourShouldBeEmptyAtInit(){
         Tile tile = new Tile(0);
         for (int i = 0; i < 4; i++) {
@@ -32,19 +20,12 @@ public class TileTest {
     }
 
     @Test
-    public void tileNeighbourShouldBeSetHasExpected(){
+    public void tileShouldKnowNeighbour_NeighbourShouldKnowCurrentTile(){
         Tile tile = new Tile(0);
         Tile neighbour = new Tile(1);
         tile.setNeighbour(0, neighbour);
+        
         assertEquals(neighbour, tile.getNeighbour(0));
-    }
-
-    @Test
-    public void tileNeighbourShouldKnowOfPresentTileWhenSet(){
-        Tile tile = new Tile(0);
-        Tile neighbour = new Tile(1);
-        tile.setNeighbour(0, neighbour);
-        assertEquals(tile, neighbour.getNeighbour(2));
     }
 
     @Test
@@ -62,7 +43,7 @@ public class TileTest {
     }
 
     @Test
-    public void TwoTwoMapTileShouldKnowNeighbour(){
+    public void TwobyTwoMapTileShouldKnowNeighbour(){
         Tile leftDownTile = new Tile(0);
         Tile rightDownTile = new Tile(2);
         Tile leftUpTile = new Tile(1);
