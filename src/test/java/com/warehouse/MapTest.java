@@ -10,7 +10,7 @@ public class MapTest {
         int tileCounter = 0;
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++){
-                assertEquals(TileEnum.PATH, map.getTyleType(i, j));
+                assertEquals(TileEnum.PATH, map.getTileType(i, j));
                 tileCounter++;
             }
         }
@@ -20,7 +20,7 @@ public class MapTest {
         tileCounter = 0;
         for (int i = 0; i < 20; i++){
             for (int j = 0; j < 20; j++){
-                assertEquals(TileEnum.PATH, map2.getTyleType(i, j));
+                assertEquals(TileEnum.PATH, map2.getTileType(i, j));
                 tileCounter++;
             }
         }
@@ -28,25 +28,25 @@ public class MapTest {
     }
 
     @Test
-    public void whenATyleTypeIsChanged_ShouldBeChanged(){
+    public void whenATileTypeIsChanged_ShouldBeChanged(){
         Map map = new Map(10, 10);
-        map.changeTyleType(0, 0, TileEnum.SHELF);
-        assertEquals(TileEnum.SHELF, map.getTyleType(0, 0));
+        map.changeTileType(0, 0, TileEnum.SHELF);
+        assertEquals(TileEnum.SHELF, map.getTileType(0, 0));
     }
 
     @Test
     public void whenChangingTileTypeOfARow_ShouldChangeAllTilesOfThatRow(){
         Map map = new Map(10, 10);
         Row row = new Row(new Pos(0, 0), new Pos(0, 9));
-        map.changeTyleTipeOfRow(row, TileEnum.SHELF);
+        map.changeTileTipeOfRow(row, TileEnum.SHELF);
         for (int i = 0; i < 10; i++){
-            assertEquals(TileEnum.SHELF, map.getTyleType(0, i));
+            assertEquals(TileEnum.SHELF, map.getTileType(0, i));
         }
 
         Row row2 = new Row(new Pos(0, 0), new Pos(9, 0));
-        map.changeTyleTipeOfRow(row2, TileEnum.SHELF);
+        map.changeTileTipeOfRow(row2, TileEnum.SHELF);
         for (int i = 0; i < 10; i++){
-            assertEquals(TileEnum.SHELF, map.getTyleType(i, 0));
+            assertEquals(TileEnum.SHELF, map.getTileType(i, 0));
         }
     }
 
@@ -65,13 +65,13 @@ public class MapTest {
     }
 
     @Test
-    public void changeTyleTipeOfRow_WithInvalidPositions_ShouldThrowException() {
+    public void changeTileTipeOfRow_WithInvalidPositions_ShouldThrowException() {
         Map map = new Map(10, 10);
         
         // Test invalid start position
         Row invalidRow1 = new Row(new Pos(-1, 0), new Pos(5, 0));
         assertThrows(IllegalArgumentException.class, () -> {
-            map.changeTyleTipeOfRow(invalidRow1, TileEnum.SHELF);
+            map.changeTileTipeOfRow(invalidRow1, TileEnum.SHELF);
         });
     }
 }
