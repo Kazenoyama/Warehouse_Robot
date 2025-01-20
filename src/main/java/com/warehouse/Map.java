@@ -45,7 +45,7 @@ public class Map {
         return isPositionValid(row.getStart()) && isPositionValid(row.getEnd());
     }
 
-    private boolean isPositionValid(Pos pos) {
+    public boolean isPositionValid(Pos pos) {
         return  pos.x >= 0 && pos.x < map.length &&
                 pos.y >= 0 && pos.y < map[0].length;
     }
