@@ -32,7 +32,13 @@ public class Shelf {
         }
     }
     public void removeProduct(int numberOfProduct) {
+
+        if (this.numberOfProduct - numberOfProduct < 0) {
+            throw new IllegalStateException("Shelf does not have enough product to remove");
+        }
+
         this.numberOfProduct -= numberOfProduct;
+
         if (this.numberOfProduct == 0) {
             this.product = null;
         }
