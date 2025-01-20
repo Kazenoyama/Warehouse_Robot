@@ -1,7 +1,5 @@
 package com.warehouse;
 
-import java.util.ArrayList;
-
 public class Map {
 
     private Tile[][] map;
@@ -41,7 +39,7 @@ public class Map {
         }
     }
 
-    private boolean areRowIndexValid(Row row) {
+    public boolean areRowIndexValid(Row row) {
         return isPositionValid(row.getStart()) && isPositionValid(row.getEnd());
     }
 

@@ -23,5 +23,16 @@ public class PosTest {
         assertThrows(NullPointerException.class, () -> Pos.arePositionEqual(nullPos, pos1));
         assertThrows(NullPointerException.class, () -> Pos.arePositionEqual(nullPos, nullPos));
     }
+    @Test
+    public void testIdenticalPositions() {
+        Pos pos1 = new Pos(5, 5);
+        Pos pos2 = new Pos(5, 5);
+        Pos samePos = pos1;
+        
+        assertTrue(Pos.arePositionEqual(pos1, pos2)); // Different objects, same coordinates
+        assertTrue(Pos.arePositionEqual(pos1, samePos)); // Same object reference
+        assertTrue(Pos.arePositionEqual(pos1, pos1)); // Same object with itself
+    }
 }
+
 

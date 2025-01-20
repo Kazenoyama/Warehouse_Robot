@@ -3,9 +3,6 @@ package com.warehouse;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class MapTest {
     @Test
     public void atInitMap_ShouldBeFullOfPathTileAndWithTheCorrectSize(){
@@ -68,13 +65,13 @@ public class MapTest {
     }
 
     @Test
-public void changeTyleTipeOfRow_WithInvalidPositions_ShouldThrowException() {
-    Map map = new Map(10, 10);
-    
-    // Test invalid start position
-    Row invalidRow1 = new Row(new Pos(-1, 0), new Pos(5, 0));
-    assertThrows(IllegalArgumentException.class, () -> {
-        map.changeTyleTipeOfRow(invalidRow1, TileEnum.SHELF);
-    });
+    public void changeTyleTipeOfRow_WithInvalidPositions_ShouldThrowException() {
+        Map map = new Map(10, 10);
+        
+        // Test invalid start position
+        Row invalidRow1 = new Row(new Pos(-1, 0), new Pos(5, 0));
+        assertThrows(IllegalArgumentException.class, () -> {
+            map.changeTyleTipeOfRow(invalidRow1, TileEnum.SHELF);
+        });
     }
 }
