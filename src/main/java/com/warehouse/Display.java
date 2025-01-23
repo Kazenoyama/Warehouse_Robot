@@ -10,12 +10,14 @@ public class Display extends JPanel {
     private int col;
     private Map<Point, Color> cellColors;
     private int sizeOfCell;
+    private Map<Robot, Pos> robotPositions;
 
     public Display(WarehouseMap map, int sizeOfCell) {
         this.row = map.getSizeX();
         this.col = map.getSizeY();
         this.cellColors = new HashMap<>();
         this.sizeOfCell = sizeOfCell;
+        this.robotPositions = new HashMap<>();
     }
 
     @Override
@@ -46,21 +48,24 @@ public class Display extends JPanel {
         repaint();
     }
 
-    // public Color chooseColorDependingTile(Tile tile){
-    //     switch(tile.getType()){
-    //         case 0: 
-    //             return Color.WHITE;
-    //         case 1:
-    //             return Color.GRAY;
-    //         case 2:
-    //             return Color.BLACK;
-    //         case 3:
-    //             return Color.YELLOW;
-    //         case 4:
-    //             return Color.GREEN;
-    //         default:
-    //             return Color.WHITE;
-    //     }
-    // }
+    public void displayRobot(Robot robot){
+        Pos pos = new Pos(robot.getPosition().x, robot.getPosition().y);
+        robotPositions.put(robot, pos);
+        setCellColor(pos.y, pos.x, Color.YELLOW);
+        repaint();
+    }
+
+    public void updateDisplayForRobotMoving(){
+        for (Map.Entry<Robot, Pos> entry : robotPositions.entrySet()) {
+            Pos pos = entry.getValue();
+            clearCellColor(pos.x, pos.y);
+            Pos newPos = entry.getKey().getPosition();
+            setCellColor(newPos.x, newPos.y, Color.YELLOW);
+            entry.setValue(newPos);
+        }
+        
+        repaint();
+    }
+
 
 }
