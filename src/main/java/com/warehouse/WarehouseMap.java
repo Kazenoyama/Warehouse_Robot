@@ -1,7 +1,5 @@
 package com.warehouse;
 
-import java.util.ArrayList;
-
 public class WarehouseMap {
 
     private Tile[][] map;
@@ -15,15 +13,15 @@ public class WarehouseMap {
         }
     }
 
-    public TileEnum getTyleType(int i, int j) {
+    public TileEnum getTileType(int i, int j) {
         return map[i][j].getType();
     }
 
-    public void changeTyleType(int i, int j, TileEnum type) {
+    public void changeTileType(int i, int j, TileEnum type) {
         map[i][j].typeofTile = type;
     }
 
-    public void changeTyleTipeOfRow(Row row, TileEnum type) {
+    public void changeTileTipeOfRow(Row row, TileEnum type) {
         if(!areRowIndexValid(row)){
             throw new IllegalArgumentException("Row index out of bounds");
         }
@@ -41,11 +39,11 @@ public class WarehouseMap {
         }
     }
 
-    private boolean areRowIndexValid(Row row) {
+    public boolean areRowIndexValid(Row row) {
         return isPositionValid(row.getStart()) && isPositionValid(row.getEnd());
     }
 
-    private boolean isPositionValid(Pos pos) {
+    public boolean isPositionValid(Pos pos) {
         return  pos.x >= 0 && pos.x < map.length &&
                 pos.y >= 0 && pos.y < map[0].length;
     }
