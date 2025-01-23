@@ -1,10 +1,10 @@
 package com.warehouse;
 
-public class Map {
+public class WarehouseMap {
 
     private Tile[][] map;
 
-    Map(int lengthAxeX, int lengthAxeY) {
+    WarehouseMap(int lengthAxeX, int lengthAxeY) {
         map = new Tile[lengthAxeX][lengthAxeY];
         for (int i = 0; i < lengthAxeX; i++) {
             for (int j = 0; j < lengthAxeY; j++) {

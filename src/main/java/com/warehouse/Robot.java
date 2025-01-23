@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Robot {
 
     private Pos position;
-    private final Map map;
+    private final WarehouseMap map;
 
-    public Robot(Pos position, Map map) {
+    public Robot(Pos position, WarehouseMap map) {
         this.position = position;
         this.map = map;
     }

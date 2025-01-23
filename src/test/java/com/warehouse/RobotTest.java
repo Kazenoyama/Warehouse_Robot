@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class RobotTest {
     @Test
     public void atInstanciationRobot_ShouldBePlacedAtCoordinatesAndKnowAboutTheMap() {
-        Map map = new Map(5, 5);
+        WarehouseMap map = new WarehouseMap(5, 5);
         Robot robot = new Robot(new Pos(0, 0), map);
         Pos expectedPos = new Pos(0, 0);
         assertTrue(Pos.arePositionEqual(expectedPos, robot.getPosition()));
@@ -21,7 +21,7 @@ public class RobotTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotIsInTheMiddleAndNoTileAreWalkable_RobotShouldStayInPlace(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         map.changeTileType(0, 1, TileEnum.SHELF);
         map.changeTileType(1, 0, TileEnum.SHELF);
         map.changeTileType(1, 2, TileEnum.SHELF);
@@ -34,7 +34,7 @@ public class RobotTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheCornerOfTheMapAndAllTileArePath(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         Robot robot = new Robot(new Pos(0, 0), map);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0,0), new Pos(0, 1), new Pos(1, 0)));
         ArrayList<Pos> possibleMoves = robot.computePossibleMoves();
@@ -43,7 +43,7 @@ public class RobotTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheMiddleOfTheMapAndAllTileArePath(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         Robot robot = new Robot(new Pos(1, 1), map);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(1,1), new Pos(0, 1), new Pos(1, 0), new Pos(1, 2), new Pos(2, 1)));
         ArrayList<Pos> possibleMoves = robot.computePossibleMoves();
@@ -52,7 +52,7 @@ public class RobotTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheCornerOfTheMapAndSomeTileAreNotWalkable(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         map.changeTileType(0, 1, TileEnum.SHELF);
         Robot robot = new Robot(new Pos(0, 0), map);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0, 0),new Pos(1, 0)));
