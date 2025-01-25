@@ -1,5 +1,7 @@
 package com.warehouse;
 
+import java.util.ArrayList;
+
 public class WarehouseMap {
 
     private Tile[][] map;
@@ -11,6 +13,14 @@ public class WarehouseMap {
                 map[i][j] = new Tile(TileEnum.PATH);
             }
         }
+    }
+
+    public int getHeight() {
+        return map.length;
+    }
+
+    public int getWidth() {
+        return map[0].length;
     }
 
     public TileEnum getTileType(int i, int j) {
@@ -48,6 +58,32 @@ public class WarehouseMap {
                 pos.y >= 0 && pos.y < map[0].length;
     }
 
+    public ArrayList<Pos> computePossibleMoves(Pos position) {
+        final int xPos = position.x;
+        final int yPos = position.y;
+        
+        final Pos[] possibleMoves = {
+            new Pos(xPos-1, yPos),
+            new Pos(xPos+1, yPos),
+            new Pos(xPos, yPos-1),
+            new Pos(xPos, yPos+1)
+        }; 
+
+        ArrayList<Pos> validMoves = new ArrayList<Pos>();
+        validMoves.add(position);
+        for (Pos move : possibleMoves) {
+            if(isMapPositionWalkable(move)) {
+                validMoves.add(move);
+            }
+        }
+
+        return validMoves;
+    }
+
+    public boolean isMapPositionWalkable(Pos pos) {
+        return this.isPositionValid(pos) && this.getTileType(pos.x, pos.y) == TileEnum.PATH;
+    }
+    
     public int getSizeX() {
         return map.length;
     }
