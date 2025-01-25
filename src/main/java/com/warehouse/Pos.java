@@ -9,8 +9,26 @@ public class Pos {
         this.y = y;
     }
 
-    public static boolean arePositionEqual(Pos pos1, Pos pos2){
-        return pos1.x == pos2.x && pos1.y == pos2.y;
+    @Override
+    public boolean equals(Object obj) {
+        if(this == null || obj == null){
+            throw new NullPointerException("One or both objects are null");
+        }
+
+        if(obj.getClass() == this.getClass()){
+            Pos other = (Pos) obj;
+            return x == other.x && y == other.y;
+        }
+
+        if (obj instanceof Pos) {
+            Pos other = (Pos) obj;
+            return x == other.x && y == other.y;
+        }
+        return false;
     }
-    
+
+    @Override
+    public int hashCode() {
+        return 31 * x + y;
+    }
 }

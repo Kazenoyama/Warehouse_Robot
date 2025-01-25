@@ -121,7 +121,7 @@ public class MapTest {
         int counter = 0;
         for(int i = 0; i < expected.size(); i++)
             for(int j = 0; j < actual.size(); j++)
-                if(Pos.arePositionEqual(expected.get(i), actual.get(j)))
+                if(expected.get(i).equals(actual.get(j)))
                     counter++;
 
         assertEquals(expected.size(), counter);
