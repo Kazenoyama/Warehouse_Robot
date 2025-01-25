@@ -28,37 +28,47 @@ public class Robot {
     }
 
     public void pickItemInStorage(ItemEnum itemName, ItemStorageInterface storage) {
-        if(this.itemInHand != null && this.itemInHand.getItemEnum() != itemName){
-            throw new IllegalArgumentException("Robot can only carry one type of item at a time");
-        }
-
-        if(!isRobotInRangeOfShelf(storage)){
-            throw new IllegalStateException("Robot is not in range of the shelf");
-        }
-
+        assertSingleItemType(itemName);
+        ensureRobotInStorageRange(storage);
         int numberOfItemToRemove = Math.min(this.capacity, storage.getNumberOfItemInStorage(itemName));
-
         storage.removeItem(itemName, numberOfItemToRemove);
         this.itemInHand = new Item(itemName, 0, this.capacity);
     }
 
     public void dropItemInHandInStorage(ItemStorageInterface storage){
-        if(!isRobotInRangeOfShelf(storage)){
-            throw new IllegalStateException("Robot is not in range of the shelf");
-        }
-        
+        ensureRobotInStorageRange(storage);
         int numberOfItemToDrop = Math.min(this.itemInHand.getVolume(), storage.getRemainingCapacity());
-        if(numberOfItemToDrop == this.itemInHand.getVolume()){
-            storage.addItem(this.itemInHand);
-            this.itemInHand = null;
-        } else {
-            storage.addItem(new Item(this.itemInHand.getItemEnum(), 0, numberOfItemToDrop));
-            this.itemInHand.setVolume(this.itemInHand.getVolume() - numberOfItemToDrop);
+
+        if(numberOfItemToDrop == this.itemInHand.getVolume())
+            transferAllItemsToStorage(storage);
+        else
+            transferItemVolume(storage, numberOfItemToDrop);
+    }
+
+    private void transferAllItemsToStorage(ItemStorageInterface storage) {
+        storage.addItem(this.itemInHand);
+        this.itemInHand = null;
+    }
+
+    private void transferItemVolume(ItemStorageInterface storage, int numberOfItemToDrop) {
+        storage.addItem(new Item(this.itemInHand.getItemEnum(), 0, numberOfItemToDrop));
+        this.itemInHand.setVolume(this.itemInHand.getVolume() - numberOfItemToDrop);
+    }
+
+    private void assertSingleItemType(ItemEnum itemName) {
+        if(this.itemInHand != null && this.itemInHand.getItemEnum() != itemName){
+            throw new IllegalArgumentException("Robot can only carry one type of item at a time");
         }
     }
 
     private boolean isRobotInRangeOfShelf(ItemStorageInterface storage){
         return Math.abs(this.position.x - storage.getPosition().x) <= 1 && 
                Math.abs(this.position.y - storage.getPosition().y) <= 1;
+    }
+
+    private void ensureRobotInStorageRange(ItemStorageInterface storage) {
+        if(!isRobotInRangeOfShelf(storage)){
+            throw new IllegalStateException("Robot is not in range of the shelf");
+        }
     }
 }
