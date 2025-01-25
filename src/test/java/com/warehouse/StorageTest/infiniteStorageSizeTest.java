@@ -1,8 +1,10 @@
-package com.warehouse;
+package com.warehouse.StorageTest;
 
 import org.junit.jupiter.api.Test;
 
 import com.warehouse.Storage.infiniteStorageSize;
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
 import com.warehouse.Storage.ItemStorageInterface;
 
 import static org.junit.jupiter.api.Assertions.*;

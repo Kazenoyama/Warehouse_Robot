@@ -1,6 +1,14 @@
-package com.warehouse;
+package com.warehouse.MapTest;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.TestUtils;
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.Row;
+import com.warehouse.Map.TileEnum;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Robot;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;

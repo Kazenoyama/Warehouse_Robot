@@ -1,7 +1,9 @@
-package com.warehouse;
+package com.warehouse.StorageTest;
 
 import org.junit.jupiter.api.Test;
 
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Storage.ItemStorageInterface;
 
@@ -79,8 +81,8 @@ public class ItemShelfTest {
         assertThrows(NullPointerException.class, () -> shelf.addItem(null));
         
         // Test empty shelf accepting any product
-        Shelf emptyShelf = new Shelf();
-        assertDoesNotThrow(() -> emptyShelf.addProduct(ProductEnum.PAIN));
+        ItemStorageInterface emptyShelf = new ItemShelf(10);
+        assertDoesNotThrow(() -> emptyShelf.addItem(new Item(ItemEnum.PAIN, 0, 1)));
     }
     @Test
     public void testRemoveProductWithPartialRemoval() {

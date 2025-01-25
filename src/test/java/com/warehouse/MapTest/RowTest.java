@@ -1,6 +1,10 @@
-package com.warehouse;
+package com.warehouse.MapTest;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.Row;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {

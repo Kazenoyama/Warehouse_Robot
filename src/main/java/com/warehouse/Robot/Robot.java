@@ -1,4 +1,7 @@
-package com.warehouse;
+package com.warehouse.Robot;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.WarehouseMap;
 
 public class Robot {
 

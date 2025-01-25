@@ -1,4 +1,4 @@
-package com.warehouse;
+package com.warehouse.Map;
 
 public class Row {
     private Pos start;

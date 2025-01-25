@@ -1,4 +1,4 @@
-package com.warehouse;
+package com.warehouse.Map;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class WarehouseMap {
 
     private Tile[][] map;
 
-    WarehouseMap(int lengthAxeX, int lengthAxeY) {
+    public WarehouseMap(int lengthAxeX, int lengthAxeY) {
         map = new Tile[lengthAxeX][lengthAxeY];
         for (int i = 0; i < lengthAxeX; i++) {
             for (int j = 0; j < lengthAxeY; j++) {

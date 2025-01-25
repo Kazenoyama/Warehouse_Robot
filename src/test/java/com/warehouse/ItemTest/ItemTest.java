@@ -1,8 +1,11 @@
-package com.warehouse;
+package com.warehouse.ItemTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
 
 public class ItemTest {
 

@@ -1,6 +1,10 @@
-package com.warehouse;
+package com.warehouse.ItemTest;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
+import com.warehouse.Item.ItemFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

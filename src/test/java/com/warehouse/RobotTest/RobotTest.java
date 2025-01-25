@@ -1,8 +1,12 @@
-package com.warehouse;
+package com.warehouse.RobotTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Robot;
 
 public class RobotTest {
     @Test
