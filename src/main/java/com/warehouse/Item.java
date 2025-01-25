@@ -23,5 +23,9 @@ public class Item {
     public int getVolume(){
         return volume;
     }
+
+    public int setVolume(int volume){
+        return this.volume = volume;
+    }
     
 }
