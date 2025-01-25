@@ -80,7 +80,7 @@ public class Map {
         return validMoves;
     }
 
-    private boolean isMapPositionWalkable(Pos pos) {
+    public boolean isMapPositionWalkable(Pos pos) {
         return this.isPositionValid(pos) && this.getTileType(pos.x, pos.y) == TileEnum.PATH;
     }
 }
