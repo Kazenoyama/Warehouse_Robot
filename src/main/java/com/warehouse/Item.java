@@ -2,18 +2,18 @@ package com.warehouse;
 
 public class Item {
 
-    private String name;
+    private ItemEnum itemEnum;
     private int weight;
     private int volume;
 
-    public Item(String name, int weight, int volume){
-        this.name = name;
+    public Item(ItemEnum itemEnum, int weight, int volume){
+        this.itemEnum = itemEnum;
         this.weight = weight;
         this.volume = volume;
     }
 
-    public String getName(){
-        return name;
+    public ItemEnum getItemEnum(){
+        return itemEnum;
     }
 
     public int getWeight(){
