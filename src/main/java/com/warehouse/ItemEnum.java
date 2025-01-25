@@ -9,5 +9,7 @@ public enum ItemEnum {
     TOOLS(),
     FURNITURE(),
     COMPUTER(),
+    DENTIFRICE(),
+    PAIN(),
     OTHER()
 }
