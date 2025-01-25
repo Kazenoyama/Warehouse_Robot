@@ -73,6 +73,7 @@ public class Display extends JPanel {
     public void removeRobot(Robot robot){
         Pos pos = robotPositions.get(robot);
         clearCellColor(pos.x, pos.y);
+        updateCellWithColorDependingOnMap(pos.x, pos.y);
         robotPositions.remove(robot);
         repaint();
     }

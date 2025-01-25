@@ -72,6 +72,15 @@ public class GameEngine {
         this.display.displayRobot(robot);
     }
 
+    public void removeRobot(Robot robot){
+        this.ListRobot.remove(robot);
+        this.display.removeRobot(robot);
+    }
+
+    public void updateRobotPosition(){
+        this.display.updateDisplayForRobotMoving();
+    }
+
     public WarehouseMap getWarehouseMap(){
         return this.warehouseMap;
     }
