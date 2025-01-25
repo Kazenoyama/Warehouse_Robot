@@ -16,6 +16,7 @@ public class ItemShelfTest {
         ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         assertTrue(shelf.isEmpty());
         assertEquals(null, shelf.getContainedItemList());
+        assertTrue(new Pos(0, 1).equals(shelf.getPosition()));
     }
 
     @Test
