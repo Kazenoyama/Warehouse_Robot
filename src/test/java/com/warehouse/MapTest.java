@@ -89,7 +89,7 @@ public class MapTest {
         Robot robot = new Robot(new Pos(1, 1), map);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(1, 1)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(robot.getPosition());
-        assertPositionEqualityInArrays(expectedPossbleMoves, possibleMoves);
+        assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class MapTest {
         Map map = new Map(2, 2);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0,0), new Pos(0, 1), new Pos(1, 0)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(0, 0));
-        assertPositionEqualityInArrays(expectedPossbleMoves, possibleMoves); 
+        assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves)); 
     }
 
     @Test
@@ -105,7 +105,7 @@ public class MapTest {
         Map map = new Map(3, 3);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(1,1), new Pos(0, 1), new Pos(1, 0), new Pos(1, 2), new Pos(2, 1)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(1, 1));
-        assertPositionEqualityInArrays(expectedPossbleMoves, possibleMoves);
+        assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves));
     }
 
     @Test
@@ -114,17 +114,6 @@ public class MapTest {
         map.changeTileType(0, 1, TileEnum.SHELF);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0, 0),new Pos(1, 0)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(0, 0));
-        assertPositionEqualityInArrays(expectedPossbleMoves, possibleMoves);
+        assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves));
     }
-
-    private void assertPositionEqualityInArrays(ArrayList<Pos> expected, ArrayList<Pos> actual){
-        int counter = 0;
-        for(int i = 0; i < expected.size(); i++)
-            for(int j = 0; j < actual.size(); j++)
-                if(expected.get(i).equals(actual.get(j)))
-                    counter++;
-
-        assertEquals(expected.size(), counter);
-    }
-
 }
