@@ -61,7 +61,7 @@ public class GameEngine {
                         break;
                     case 1:
                         this.warehouseMap.changeTileType(i, j, TileEnum.SHELF);
-                        ItemStorageInterface shelf = new ItemShelf(10);
+                        ItemStorageInterface shelf = new ItemShelf(new Pos(i,j), 10);
                         this.ListShelf.add(shelf);
                         break;
                     case 2:
@@ -69,13 +69,13 @@ public class GameEngine {
                         break;
                     case 3:
                         this.warehouseMap.changeTileType(i, j, TileEnum.STORAGE);
-                        ItemStorageInterface storage = new infiniteStorageSize();
+                        ItemStorageInterface storage = new infiniteStorageSize(new Pos(i, j));
                         this.ListShelf.add(storage);
                         this.storagePos = new Pos(i, j);
                         break;
                     case 4:
                         this.warehouseMap.changeTileType(i, j, TileEnum.DELIVERY);
-                        ItemStorageInterface delivery = new infiniteStorageSize();
+                        ItemStorageInterface delivery = new infiniteStorageSize(new Pos(i, j));
                         this.ListShelf.add(delivery);
                         this.deliveryPos = new Pos(i, j);
                         break;
