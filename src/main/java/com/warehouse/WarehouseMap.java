@@ -2,11 +2,11 @@ package com.warehouse;
 
 import java.util.ArrayList;
 
-public class Map {
+public class WarehouseMap {
 
     private Tile[][] map;
 
-    Map(int lengthAxeX, int lengthAxeY) {
+    WarehouseMap(int lengthAxeX, int lengthAxeY) {
         map = new Tile[lengthAxeX][lengthAxeY];
         for (int i = 0; i < lengthAxeX; i++) {
             for (int j = 0; j < lengthAxeY; j++) {
@@ -82,5 +82,13 @@ public class Map {
 
     public boolean isMapPositionWalkable(Pos pos) {
         return this.isPositionValid(pos) && this.getTileType(pos.x, pos.y) == TileEnum.PATH;
+    }
+    
+    public int getSizeX() {
+        return map.length;
+    }
+
+    public int getSizeY() {
+        return map[0].length;
     }
 }

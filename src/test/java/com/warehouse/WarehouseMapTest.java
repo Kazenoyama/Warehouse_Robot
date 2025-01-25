@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MapTest {
+public class WarehouseMapTest {
     @Test
     public void atInitMap_ShouldBeFullOfPathTileAndWithTheCorrectSize(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         int tileCounter = 0;
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++){
@@ -19,7 +19,7 @@ public class MapTest {
         }
         assertEquals(100, tileCounter);
 
-        Map map2 = new Map(20, 20);
+        WarehouseMap map2 = new WarehouseMap(20, 20);
         tileCounter = 0;
         for (int i = 0; i < 20; i++){
             for (int j = 0; j < 20; j++){
@@ -32,14 +32,14 @@ public class MapTest {
 
     @Test
     public void whenATileTypeIsChanged_ShouldBeChanged(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         map.changeTileType(0, 0, TileEnum.SHELF);
         assertEquals(TileEnum.SHELF, map.getTileType(0, 0));
     }
 
     @Test
     public void whenChangingTileTypeOfARow_ShouldChangeAllTilesOfThatRow(){
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         Row row = new Row(new Pos(0, 0), new Pos(0, 9));
         map.changeTileTipeOfRow(row, TileEnum.SHELF);
         for (int i = 0; i < 10; i++){
@@ -55,7 +55,7 @@ public class MapTest {
 
     @Test
     public void testIsPositionValid() {
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
 
         assertTrue(map.isPositionValid(new Pos(0, 0)));
         
@@ -69,7 +69,7 @@ public class MapTest {
 
     @Test
     public void changeTileTipeOfRow_WithInvalidPositions_ShouldThrowException() {
-        Map map = new Map(10, 10);
+        WarehouseMap map = new WarehouseMap(10, 10);
         
         // Test invalid start position
         Row invalidRow1 = new Row(new Pos(-1, 0), new Pos(5, 0));
@@ -81,7 +81,7 @@ public class MapTest {
     
     @Test
     public void computePossibleMoves_WhenTheRobotIsInTheMiddleAndNoTileAreWalkable_RobotShouldStayInPlace(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         map.changeTileType(0, 1, TileEnum.SHELF);
         map.changeTileType(1, 0, TileEnum.SHELF);
         map.changeTileType(1, 2, TileEnum.SHELF);
@@ -94,7 +94,7 @@ public class MapTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheCornerOfTheMapAndAllTileArePath(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0,0), new Pos(0, 1), new Pos(1, 0)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(0, 0));
         assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves)); 
@@ -102,7 +102,7 @@ public class MapTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheMiddleOfTheMapAndAllTileArePath(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(1,1), new Pos(0, 1), new Pos(1, 0), new Pos(1, 2), new Pos(2, 1)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(1, 1));
         assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves));
@@ -110,7 +110,7 @@ public class MapTest {
 
     @Test
     public void computePossibleMoves_WhenTheRobotWhenInTheCornerOfTheMapAndSomeTileAreNotWalkable(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         map.changeTileType(0, 1, TileEnum.SHELF);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(0, 0),new Pos(1, 0)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(new Pos(0, 0));

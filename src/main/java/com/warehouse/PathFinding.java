@@ -2,6 +2,7 @@ package com.warehouse;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.interfaces.AStarAdmissibleHeuristic;
@@ -15,16 +16,16 @@ public class PathFinding {
     private HashMap<Pos, List<Pos>> graphOfTheMap;
     private Graph<Pos, DefaultWeightedEdge> jgraphtGraph;
 
-    public PathFinding(Map map){
+    public PathFinding(WarehouseMap map){
         this.graphOfTheMap = computeGraphOfAMap(map);
         this.jgraphtGraph = convertToJGraphT();
     }
 
-    public HashMap<Pos, List<Pos>> getGraph(Map map){
+    public HashMap<Pos, List<Pos>> getGraph(WarehouseMap map){
         return this.graphOfTheMap;
     }
 
-    public HashMap<Pos, List<Pos>> computeGraphOfAMap(Map map){
+    public HashMap<Pos, List<Pos>> computeGraphOfAMap(WarehouseMap map){
         HashMap<Pos, List<Pos>> graph = new HashMap<Pos, List<Pos>>();
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {

@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 public class PathFindingTest {
     @Test
     public void testTransformMapIntoGraph(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         HashMap<Pos, List<Pos>> expectedGraph = new HashMap<Pos, List<Pos>>();
         expectedGraph.put(new Pos(0, 0), Arrays.asList(new Pos(0, 0), new Pos(0, 1), new Pos(1, 0)));
         expectedGraph.put(new Pos(0, 1), Arrays.asList(new Pos(0, 1), new Pos(0, 0), new Pos(1, 1)));
@@ -26,7 +27,7 @@ public class PathFindingTest {
 
     @Test
     public void testTransformMapIntoGraphHarder(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         map.changeTileType(0, 1, TileEnum.SHELF);
         map.changeTileType(1, 1, TileEnum.SHELF);
         HashMap<Pos, List<Pos>> expectedGraph = new HashMap<Pos, List<Pos>>();
@@ -46,7 +47,7 @@ public class PathFindingTest {
 
     @Test
     public void computeShortestPath(){
-        Map map = new Map(2, 2);
+        WarehouseMap map = new WarehouseMap(2, 2);
         PathFinding pathFinding = new PathFinding(map);
         Pos start = new Pos(0, 0);
         Pos end = new Pos(1, 1);
@@ -58,7 +59,7 @@ public class PathFindingTest {
 
     @Test
     public void computeAHarderShortestPath(){
-        Map map = new Map(3, 3);
+        WarehouseMap map = new WarehouseMap(3, 3);
         map.changeTileType(0, 1, TileEnum.SHELF);
         map.changeTileType(1, 1, TileEnum.SHELF);
         PathFinding pathFinding = new PathFinding(map);

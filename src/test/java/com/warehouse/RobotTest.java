@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class RobotTest {
     @Test
     public void atInstanciationRobot_ShouldBePlacedAtCoordinatesAndKnowAboutTheMap() {
-        Map map = new Map(5, 5);
+        WarehouseMap map = new WarehouseMap(5, 5);
         Robot robot = new Robot(new Pos(0, 0), map);
         Pos expectedPos = new Pos(0, 0);
         assertTrue(expectedPos.equals(robot.getPosition()));
