@@ -94,7 +94,7 @@ public class WarehouseMapTest {
         map.changeTileType(1, 0, TileEnum.SHELF);
         map.changeTileType(1, 2, TileEnum.SHELF);
         map.changeTileType(2, 1, TileEnum.SHELF);
-        Robot robot = new Robot(new Pos(1, 1), map);
+        Robot robot = new Robot(new Pos(1, 1), map, 100);
         ArrayList<Pos> expectedPossbleMoves = new ArrayList<>(Arrays.asList(new Pos(1, 1)));
         ArrayList<Pos> possibleMoves = map.computePossibleMoves(robot.getPosition());
         assertTrue(TestUtils.areTwoPositionListsEquals(expectedPossbleMoves, possibleMoves));
