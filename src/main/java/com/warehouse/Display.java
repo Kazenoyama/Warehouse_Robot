@@ -11,8 +11,10 @@ public class Display extends JPanel {
     private Map<Point, Color> cellColors;
     private int sizeOfCell;
     private Map<Robot, Pos> robotPositions;
+    private WarehouseMap map;
 
     public Display(WarehouseMap map, int sizeOfCell) {
+        this.map = map;
         this.row = map.getSizeX();
         this.col = map.getSizeY();
         this.cellColors = new HashMap<>();
@@ -59,12 +61,48 @@ public class Display extends JPanel {
         for (Map.Entry<Robot, Pos> entry : robotPositions.entrySet()) {
             Pos pos = entry.getValue();
             clearCellColor(pos.x, pos.y);
-            Pos newPos = entry.getKey().getPosition();
+            Pos newPos = new Pos(entry.getKey().getPosition().x, entry.getKey().getPosition().y);
             setCellColor(newPos.x, newPos.y, Color.YELLOW);
             entry.setValue(newPos);
         }
         
         repaint();
+    }
+
+    public void removeRobot(Robot robot){
+        Pos pos = robotPositions.get(robot);
+        clearCellColor(pos.x, pos.y);
+        robotPositions.remove(robot);
+        repaint();
+    }
+
+    public Map<Robot, Pos> getRobotPositions() {
+        return robotPositions;
+    }
+
+    public void updateMapDisplayWithColor(){
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                TileEnum type = this.map.getTileType(i, j);
+                switch (type){
+                    case PATH:
+                        setCellColor(i, j, Color.WHITE);
+                        break;
+                    case SHELF:
+                        setCellColor(i, j, Color.GRAY);
+                        break;
+                    case WALL:
+                        setCellColor(i, j, Color.BLACK);
+                        break;
+                    case STORAGE:
+                        setCellColor(i, j, Color.GREEN);
+                        break;
+                    case DELIVERY:
+                        setCellColor(i, j, Color.RED);
+                        break;
+                }
+            }
+        }
     }
 
 
