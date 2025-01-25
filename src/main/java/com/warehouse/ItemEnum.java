@@ -1,6 +1,6 @@
 package com.warehouse;
 
-public enum ProductEnum {
+public enum ItemEnum {
     FOOD(),
     DRINK(),
     ELECTRONICS(),
