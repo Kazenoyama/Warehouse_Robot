@@ -47,4 +47,12 @@ public class WarehouseMap {
         return  pos.x >= 0 && pos.x < map.length &&
                 pos.y >= 0 && pos.y < map[0].length;
     }
+
+    public int getSizeX() {
+        return map.length;
+    }
+
+    public int getSizeY() {
+        return map[0].length;
+    }
 }
