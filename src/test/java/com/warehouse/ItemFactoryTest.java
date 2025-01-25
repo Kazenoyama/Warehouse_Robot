@@ -26,15 +26,15 @@ public class ItemFactoryTest {
 
     @Test
     public void createItemEnumShouldReturnItemWithTheCorrectNumberOfItems() {
-        Item item = ItemFactory.createItemEnum(ItemEnum.FOOD, 5);
-        assertEquals("Food", item.getName());
-        assertEquals((int) ItemEnum.FOOD.getWeight() * 5, item.getWeight());
+        Item item = ItemFactory.createItem(ItemEnum.FOOD, 5, 5);
+        assertEquals(ItemEnum.FOOD, item.getItemEnum());
+        assertEquals(5, item.getWeight());
         assertEquals(5, item.getVolume());
 
-        item = ItemFactory.createItemEnum(ItemEnum.DRINK, 5);
-        assertEquals("Drink", item.getName());
-        assertEquals((int) ItemEnum.DRINK.getWeight() * 5, item.getWeight());
-        assertEquals(5, item.getVolume());
+        item = ItemFactory.createItem(ItemEnum.DRINK, 10, 10);
+        assertEquals(ItemEnum.DRINK, item.getItemEnum());
+        assertEquals(10, item.getWeight());
+        assertEquals(10, item.getVolume());
     }
     
 }
