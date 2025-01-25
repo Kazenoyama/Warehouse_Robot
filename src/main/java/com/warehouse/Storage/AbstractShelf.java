@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 import com.warehouse.Item.Item;
 import com.warehouse.Item.ItemEnum;
+import com.warehouse.Map.Pos;
 
 public abstract class AbstractShelf implements ItemStorageInterface{
 
     protected ArrayList<Item> itemList = new ArrayList<>();
+    private Pos position;
+
+    public AbstractShelf(Pos position) {
+        this.position = position;
+    }
 
     public abstract void addItem(Item item);
 

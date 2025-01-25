@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import com.warehouse.Item.Item;
 import com.warehouse.Item.ItemEnum;
+import com.warehouse.Map.Pos;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Storage.ItemStorageInterface;
 
@@ -12,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ItemShelfTest {
     @Test
     public void testAddItem() {
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         assertTrue(shelf.isEmpty());
         assertEquals(null, shelf.getContainedItemList());
     }
 
     @Test
     public void WhenAProductIsAdded_ShelfIsNotEmptyAnymoreAndContainsTheNumberOfProduct() {
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 1));
         
         assertFalse(shelf.isEmpty());
@@ -29,7 +30,7 @@ public class ItemShelfTest {
 
     @Test
     public void shelfNumberOfProductShoudBeIncrementedOrDecrementedByTheNumberOfAddedProduct(){
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 2));
         assertEquals(2, shelf.getNumberOfItemInStorage(ItemEnum.DENTIFRICE));
 
@@ -39,7 +40,7 @@ public class ItemShelfTest {
 
     @Test
     public void WhenRemovingAllProduct_ShelfShoudBeEmptyAndCounterAt0(){
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 2));
         shelf.removeItem(ItemEnum.DENTIFRICE, 2);
 
@@ -52,13 +53,13 @@ public class ItemShelfTest {
 
     @Test
     public void WhenRemovingProductFromEmptyShelf_ShouldThrow() {
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         assertThrows(IllegalStateException.class, () -> shelf.removeItem(ItemEnum.DENTIFRICE, 1));
     }
 
     @Test
     public void WhenAddingMoreThatTheCappacityOfTheShelf_ShouldThrow() {
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 10));
         assertEquals(0, shelf.getRemainingCapacity());
         assertThrows(IllegalArgumentException.class, () -> shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 1)));
@@ -67,7 +68,7 @@ public class ItemShelfTest {
     @Test
     public void testThrowIfProductTypeIsNotValid() {
         // Test with initial null product
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 1));
         assertTrue(shelf.contains(ItemEnum.DENTIFRICE));
         
@@ -81,12 +82,12 @@ public class ItemShelfTest {
         assertThrows(NullPointerException.class, () -> shelf.addItem(null));
         
         // Test empty shelf accepting any product
-        ItemStorageInterface emptyShelf = new ItemShelf(10);
+        ItemStorageInterface emptyShelf = new ItemShelf(new Pos(0, 1), 10);
         assertDoesNotThrow(() -> emptyShelf.addItem(new Item(ItemEnum.PAIN, 0, 1)));
     }
     @Test
     public void testRemoveProductWithPartialRemoval() {
-        ItemStorageInterface shelf = new ItemShelf(10);
+        ItemStorageInterface shelf = new ItemShelf(new Pos(0, 1), 10);
         // Setup shelf with multiple products
         shelf.addItem(new Item(ItemEnum.DENTIFRICE, 0, 5));
         
