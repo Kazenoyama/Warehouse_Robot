@@ -1,10 +1,12 @@
 package com.warehouse.Storage;
 
 import com.warehouse.Item.Item;
+import com.warehouse.Map.Pos;
 
 public class infiniteStorageSize extends AbstractShelf{
 
-    public infiniteStorageSize() {
+    public infiniteStorageSize(Pos position) {
+        super(position);
     }
 
     @Override

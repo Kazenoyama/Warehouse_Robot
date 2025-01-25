@@ -1,13 +1,14 @@
 package com.warehouse.Storage;
 
 import com.warehouse.Item.Item;
+import com.warehouse.Map.Pos;
 
 public class ItemShelf extends AbstractShelf {
 
     private int maxCapacity;
 
-    public ItemShelf(int maxCapacity) {
-        super();
+    public ItemShelf(Pos position, int maxCapacity) {
+        super(position);
         this.maxCapacity = maxCapacity;
     }
 
