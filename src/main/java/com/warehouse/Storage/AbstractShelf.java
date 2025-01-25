@@ -1,28 +1,15 @@
-package com.warehouse;
+package com.warehouse.Storage;
 
 import java.util.ArrayList;
 
-public class ItemShelf implements ItemStorageInterface{
+import com.warehouse.Item;
+import com.warehouse.ItemEnum;
 
-    private ArrayList<Item> itemList = new ArrayList<>();
+public abstract class AbstractShelf implements ItemStorageInterface{
 
-    public ItemShelf() {
-    }
+    protected ArrayList<Item> itemList = new ArrayList<>();
 
-    public void addItem(Item item){
-        int index = getItemIndex(item.getItemEnum());
-
-        if(!isEmpty() && index == -1){
-            throw new IllegalArgumentException("cannot store two different type of items");
-        }
-
-        if(index != -1){
-            Item itemInList = itemList.get(index);
-            itemInList.setVolume(itemInList.getVolume() + item.getVolume());
-        }else{
-            itemList.add(item);
-        }
-    }
+    public abstract void addItem(Item item);
 
     public void removeItem(ItemEnum item, int numberOfItemToRemove){
         int index = getItemIndex(item);
@@ -38,8 +25,6 @@ public class ItemShelf implements ItemStorageInterface{
             itemList.remove(index);
         }
     }
-
-
 
     public int getNumberOfItemInStorage(ItemEnum item){
         int index = getItemIndex(item);
@@ -63,7 +48,7 @@ public class ItemShelf implements ItemStorageInterface{
         return itemList.isEmpty();
     }
 
-    private int getItemIndex(ItemEnum item){
+    protected int getItemIndex(ItemEnum item){
         for(int i = 0; i < itemList.size(); i++){
             if(itemList.get(i).getItemEnum().equals(item)){
                 return i;
