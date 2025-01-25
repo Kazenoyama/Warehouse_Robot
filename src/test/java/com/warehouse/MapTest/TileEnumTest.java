@@ -1,6 +1,8 @@
-package com.warehouse;
+package com.warehouse.MapTest;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.TileEnum;
 
 public class TileEnumTest {
     @Test

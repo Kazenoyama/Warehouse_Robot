@@ -1,6 +1,6 @@
 package com.warehouse.Storage;
 
-import com.warehouse.Item;
+import com.warehouse.Item.Item;
 
 public class infiniteStorageSize extends AbstractShelf{
 

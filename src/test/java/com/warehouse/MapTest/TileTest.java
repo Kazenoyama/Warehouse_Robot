@@ -1,7 +1,10 @@
-package com.warehouse;
+package com.warehouse.MapTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.Tile;
+import com.warehouse.Map.TileEnum;
 
 public class TileTest {
 

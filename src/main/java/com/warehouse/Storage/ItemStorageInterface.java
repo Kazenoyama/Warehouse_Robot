@@ -2,8 +2,8 @@ package com.warehouse.Storage;
 
 import java.util.ArrayList;
 
-import com.warehouse.Item;
-import com.warehouse.ItemEnum;
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
 
 /***
  * Interface for ItemStorage classes

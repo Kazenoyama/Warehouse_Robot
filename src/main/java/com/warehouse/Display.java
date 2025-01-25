@@ -1,5 +1,11 @@
 package com.warehouse;
 import javax.swing.*;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.TileEnum;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Robot;
+
 import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.warehouse;
+package com.warehouse.Robot;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +9,9 @@ import org.jgrapht.alg.interfaces.AStarAdmissibleHeuristic;
 import org.jgrapht.alg.shortestpath.AStarShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.WarehouseMap;
 
 
 

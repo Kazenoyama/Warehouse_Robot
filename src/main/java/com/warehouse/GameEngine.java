@@ -2,6 +2,12 @@ package com.warehouse;
 
 import java.util.List;
 import javax.swing.JFrame;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.TileEnum;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Robot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

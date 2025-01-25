@@ -1,4 +1,4 @@
-package com.warehouse;
+package com.warehouse.RobotTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Map.TileEnum;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.PathFinding;
 
 public class PathFindingTest {
     @Test

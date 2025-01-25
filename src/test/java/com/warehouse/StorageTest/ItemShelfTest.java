@@ -1,7 +1,11 @@
-package com.warehouse;
+package com.warehouse.StorageTest;
 
 import org.junit.jupiter.api.Test;
 
+import com.warehouse.Shelf;
+import com.warehouse.Item.Item;
+import com.warehouse.Item.ItemEnum;
+import com.warehouse.Item.ProductEnum;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Storage.ItemStorageInterface;
 

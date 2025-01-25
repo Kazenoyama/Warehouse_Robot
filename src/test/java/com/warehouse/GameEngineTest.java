@@ -1,6 +1,10 @@
 package com.warehouse;
 
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Map.Pos;
+import com.warehouse.Robot.Robot;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameEngineTest {

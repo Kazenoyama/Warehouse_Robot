@@ -1,9 +1,12 @@
-package com.warehouse;
+package com.warehouse.MapTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.warehouse.Shelf;
+import com.warehouse.Item.ProductEnum;
 
 public class ShelfTest {
 

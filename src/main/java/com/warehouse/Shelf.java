@@ -1,5 +1,7 @@
 package com.warehouse;
 
+import com.warehouse.Item.ProductEnum;
+
 public class Shelf {
 
     private ProductEnum product;

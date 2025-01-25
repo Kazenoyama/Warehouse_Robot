@@ -1,4 +1,4 @@
-package com.warehouse;
+package com.warehouse.Item;
 
 public enum ItemEnum {
     FOOD(2.0),
