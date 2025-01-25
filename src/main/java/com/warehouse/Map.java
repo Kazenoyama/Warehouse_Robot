@@ -15,6 +15,14 @@ public class Map {
         }
     }
 
+    public int getHeight() {
+        return map.length;
+    }
+
+    public int getWidth() {
+        return map[0].length;
+    }
+
     public TileEnum getTileType(int i, int j) {
         return map[i][j].getType();
     }
