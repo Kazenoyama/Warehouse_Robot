@@ -53,7 +53,7 @@ public class Display extends JPanel {
     public void displayRobot(Robot robot){
         Pos pos = new Pos(robot.getPosition().x, robot.getPosition().y);
         robotPositions.put(robot, pos);
-        setCellColor(pos.y, pos.x, Color.YELLOW);
+        setCellColor(pos.x, pos.y, Color.YELLOW);
         repaint();
     }
 
@@ -84,23 +84,7 @@ public class Display extends JPanel {
 
     public void updateCellWithColorDependingOnMap(int x, int y){
         TileEnum type = this.map.getTileType(x, y);
-        switch (type){
-            case PATH:
-                setCellColor(x, y, Color.WHITE);
-                break;
-            case SHELF:
-                setCellColor(x, y, Color.GRAY);
-                break;
-            case WALL:
-                setCellColor(x, y, Color.BLACK);
-                break;
-            case STORAGE:
-                setCellColor(x, y, Color.GREEN);
-                break;
-            case DELIVERY:
-                setCellColor(x, y, Color.RED);
-                break;
-        }
+        setCellColor(x, y, type.getColor());
     }
 
     public void updateMapDisplayWithColor(){

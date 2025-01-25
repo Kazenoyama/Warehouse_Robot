@@ -13,6 +13,8 @@ public class GameEngine {
     private  Integer[][] mapTiles;
     private Display display;
     private JFrame frame;
+    private Pos storagePos;
+    private Pos deliveryPos;
 
     public GameEngine(Integer[][] mapTiles){
         this.mapTiles = mapTiles;
@@ -21,8 +23,7 @@ public class GameEngine {
         createWarehouseMap();
         createJFramePanel_And_Display();
         giveTilesCorrectType();
-        this.display.updateMapDisplayWithColor();
-        
+        this.display.updateMapDisplayWithColor();     
     }
 
     private void createWarehouseMap(){
@@ -55,9 +56,11 @@ public class GameEngine {
                         break;
                     case 3:
                         this.warehouseMap.changeTileType(i, j, TileEnum.STORAGE);
+                        this.storagePos = new Pos(i, j);
                         break;
                     case 4:
                         this.warehouseMap.changeTileType(i, j, TileEnum.DELIVERY);
+                        this.deliveryPos = new Pos(i, j);
                         break;
                     default:
                         this.warehouseMap.changeTileType(i, j, TileEnum.WALL);
@@ -68,6 +71,10 @@ public class GameEngine {
     }
 
     public void addRobot(Robot robot){
+        if(robot.getPosition() != this.storagePos){
+            robot.getPosition().x = this.storagePos.x;
+            robot.getPosition().y = this.storagePos.y;
+        }
         this.ListRobot.add(robot);
         this.display.displayRobot(robot);
     }

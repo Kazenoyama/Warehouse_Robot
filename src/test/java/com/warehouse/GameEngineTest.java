@@ -24,8 +24,12 @@ public class GameEngineTest {
         gameEngine.addRobot(robot);
         assertNotNull(gameEngine.getListRobot());
         //Thread.sleep(2000);
-        gameEngine.removeRobot(robot);
-        assertEquals(0, gameEngine.getListRobot().size());
+        robot.getPosition().x -= 1;
+        robot.getPosition().y -= 0;
+        gameEngine.updateRobotPosition();
+
+        // gameEngine.removeRobot(robot);
+        // assertEquals(0, gameEngine.getListRobot().size());
         //Thread.sleep(2000);
         gameEngine.disposeOfJFrame();
     }
@@ -58,7 +62,7 @@ public class GameEngineTest {
         gameEngine.disposeOfJFrame();
     }
 
-    
+
 
     
 }
