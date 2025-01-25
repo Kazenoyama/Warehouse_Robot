@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.warehouse.Item.Item;
 import com.warehouse.Item.ItemEnum;
+import com.warehouse.Map.Pos;
 
 /***
  * Interface for ItemStorage classes
@@ -20,4 +21,5 @@ public interface ItemStorageInterface {
     public int getRemainingCapacity();
     public void clear();
     public boolean isEmpty();
+    public Pos getPosition();
 }

@@ -54,6 +54,10 @@ public abstract class AbstractShelf implements ItemStorageInterface{
         return itemList.isEmpty();
     }
 
+    public Pos getPosition(){
+        return position;
+    }
+
     protected int getItemIndex(ItemEnum item){
         for(int i = 0; i < itemList.size(); i++){
             if(itemList.get(i).getItemEnum().equals(item)){
