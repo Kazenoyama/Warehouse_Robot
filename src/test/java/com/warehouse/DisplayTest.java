@@ -245,6 +245,85 @@
 
 //         display.updateMapDisplayWithColor();
 
-//         Thread.sleep(5000);
+//         Thread.sleep(2000);
+
+//         frame.dispose();
+//     }
+
+//     @Test
+//     public void isTheDisplayShowingRightColorForEachTile_withMovingRobot() throws InterruptedException {
+//         JFrame frame = new JFrame("Warehouse isTheDisplayShowingRightColorForEachTile");
+//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//         WarehouseMap map = new WarehouseMap(5, 5);
+
+//         Display display = new Display(map, 50);
+
+//         frame.add(display);
+//         frame.setSize(500, 500);
+//         frame.setVisible(true);
+
+//         Integer[][] mapTiles = {
+//             {0, 0, 0, 0, 3},
+//             {0, 1, 1, 1, 0},
+//             {0, 1, 2, 1, 0},
+//             {0, 1, 1, 1, 0},
+//             {0, 0, 0, 0, 4}
+//         };
+
+//         for (int i = 0; i < map.getSizeX(); i++){
+//             for (int j = 0; j < map.getSizeY(); j++){
+//                 switch (mapTiles[i][j]) {
+//                     case 0:
+//                         map.changeTileType(i, j, TileEnum.PATH);
+//                         break;
+//                     case 1:
+//                         map.changeTileType(i, j, TileEnum.SHELF);
+//                         break;
+//                     case 2:
+//                         map.changeTileType(i, j, TileEnum.WALL);
+//                         break;
+//                     case 3:
+//                         map.changeTileType(i, j, TileEnum.STORAGE);
+//                         break;
+//                     case 4:
+//                         map.changeTileType(i, j, TileEnum.DELIVERY);
+//                         break;
+//                     default:
+//                         map.changeTileType(i, j, TileEnum.WALL);
+//                         break;
+//                 }
+//             }
+//         }
+
+//         Thread.sleep(1000);
+
+//         display.updateMapDisplayWithColor();
+
+//         Thread.sleep(1000);
+
+//         Robot robot = new Robot(new Pos(0, 0), map);
+//         display.displayRobot(robot);
+
+//         Thread.sleep(1000);
+
+//         robot.getPosition().x = 0;
+//         robot.getPosition().y = 1;
+//         display.updateDisplayForRobotMoving();
+
+//         Thread.sleep(1000);
+
+//         robot.getPosition().x = 1;
+//         robot.getPosition().y = 1;
+//         display.updateDisplayForRobotMoving();
+
+//         Thread.sleep(1000);
+
+//         robot.getPosition().x = 1;
+//         robot.getPosition().y = 2;
+//         display.updateDisplayForRobotMoving();
+
+//         Thread.sleep(1000);
+
+//         frame.dispose();
 //     }
 // }
