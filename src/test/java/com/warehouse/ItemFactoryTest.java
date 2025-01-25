@@ -13,13 +13,13 @@ public class ItemFactoryTest {
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemFactory.createItem("", 1, 1);
+            ItemFactory.createItem(null, 1, 1);
         });
     }
 
     @Test
     public void createItemShouldNotHaveNegativeWeightOrVolumeAtInit() {
-        Item item = ItemFactory.createItem("Item", -1, -1);
+        Item item = ItemFactory.createItem(ItemEnum.CLOTHES, -1, -1);
         assertEquals(0, item.getWeight());
         assertEquals(0, item.getVolume());
     }

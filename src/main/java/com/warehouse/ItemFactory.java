@@ -2,14 +2,14 @@ package com.warehouse;
 
 public class ItemFactory {
 
-    public static Item createItem(String name, int weight, int volume) {
-        if(name == null || name.isEmpty()) {
+    public static Item createItem(ItemEnum itemEnum, int weight, int volume) {
+        if(itemEnum == null) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         if(weight < 0) {weight = 0;}
         if (volume < 0) {volume = 0;}
 
-        return new Item(name, weight, volume);
+        return new Item(itemEnum, weight, volume);
     }
 
     public static Item createItemEnum(ItemEnum itemEnum, int numberOfItem) {
@@ -40,5 +40,4 @@ public class ItemFactory {
                 throw new IllegalArgumentException("ItemEnum not found");
         }
     }
-    
 }
