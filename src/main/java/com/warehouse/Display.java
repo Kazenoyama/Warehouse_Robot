@@ -61,6 +61,7 @@ public class Display extends JPanel {
         for (Map.Entry<Robot, Pos> entry : robotPositions.entrySet()) {
             Pos pos = entry.getValue();
             clearCellColor(pos.x, pos.y);
+            updateCellWithColorDependingOnMap(pos.x, pos.y);
             Pos newPos = new Pos(entry.getKey().getPosition().x, entry.getKey().getPosition().y);
             setCellColor(newPos.x, newPos.y, Color.YELLOW);
             entry.setValue(newPos);
@@ -78,6 +79,27 @@ public class Display extends JPanel {
 
     public Map<Robot, Pos> getRobotPositions() {
         return robotPositions;
+    }
+
+    public void updateCellWithColorDependingOnMap(int x, int y){
+        TileEnum type = this.map.getTileType(x, y);
+        switch (type){
+            case PATH:
+                setCellColor(x, y, Color.WHITE);
+                break;
+            case SHELF:
+                setCellColor(x, y, Color.GRAY);
+                break;
+            case WALL:
+                setCellColor(x, y, Color.BLACK);
+                break;
+            case STORAGE:
+                setCellColor(x, y, Color.GREEN);
+                break;
+            case DELIVERY:
+                setCellColor(x, y, Color.RED);
+                break;
+        }
     }
 
     public void updateMapDisplayWithColor(){
