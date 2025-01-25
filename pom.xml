@@ -40,6 +40,19 @@
                     </includes>
                 </configuration>
             </plugin>
+            <plugin>            java -jar target/wareHouse-1.0-SNAPSHOT.jar
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.warehouse.Main</mainClass>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
