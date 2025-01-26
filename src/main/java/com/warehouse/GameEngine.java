@@ -10,11 +10,13 @@ import com.warehouse.Item.*;
 import com.warehouse.Map.Pos;
 import com.warehouse.Map.TileEnum;
 import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Order;
 import com.warehouse.Robot.Robot;
 import com.warehouse.Storage.ItemStorageInterface;
 import com.warehouse.Storage.infiniteStorageSize;
 import com.warehouse.Storage.ItemShelf; 
-
+import com.warehouse.Robot.RobotCommand;
+import com.warehouse.Robot.TransferItemCommand;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,8 @@ public class GameEngine {
     private JFrame frame;
     private Pos storagePos;
     private Pos deliveryPos;
+    private ItemStorageInterface deliveryStorage;
+    private Map<Robot, List<Order>> pendingRobotOrder;
 
     public GameEngine(Integer[][] mapTiles){
         initVariables(mapTiles);
@@ -85,6 +89,7 @@ public class GameEngine {
                     case 4:
                         this.warehouseMap.changeTileType(i, j, TileEnum.DELIVERY);
                         ItemStorageInterface delivery = new infiniteStorageSize(new Pos(i, j));
+                        this.deliveryStorage = delivery;
                         this.ListShelf.add(delivery);
                         this.deliveryPos = new Pos(i, j);
                         break;
@@ -160,6 +165,25 @@ public class GameEngine {
     public Pos getDeliveryPos(){
         return this.deliveryPos;
     }
+
+    // public void executeMoveFromPendingOrder(){
+    //     for (Robot robot : this.pendingRobotOrder.keySet()) {
+    //         List<Order> orders = this.pendingRobotOrder.get(robot);
+    //         if (orders != null && !orders.isEmpty()) {
+    //             Order order = orders.remove(0);
+    //             RobotCommand command = new TransferItemCommand(robot, order);
+    //             command.execute();
+    //             if (orders.isEmpty()) {
+    //                 this.pendingRobotOrder.remove(robot);
+    //             }
+    //         }
+    //     }
+    // }
+
+    public ItemStorageInterface getDeliveryStorage(){
+        return this.deliveryStorage;
+    }
+
 
 
     
