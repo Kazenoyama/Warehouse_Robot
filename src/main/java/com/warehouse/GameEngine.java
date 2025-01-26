@@ -29,6 +29,7 @@ public class GameEngine {
     private JFrame frame;
     private Pos storagePos;
     private Pos deliveryPos;
+    private ItemStorageInterface deliveryStorage;
 
     public GameEngine(Integer[][] mapTiles){
         initVariables(mapTiles);
@@ -85,6 +86,7 @@ public class GameEngine {
                     case 4:
                         this.warehouseMap.changeTileType(i, j, TileEnum.DELIVERY);
                         ItemStorageInterface delivery = new infiniteStorageSize(new Pos(i, j));
+                        this.deliveryStorage = delivery;
                         this.ListShelf.add(delivery);
                         this.deliveryPos = new Pos(i, j);
                         break;
@@ -160,6 +162,11 @@ public class GameEngine {
     public Pos getDeliveryPos(){
         return this.deliveryPos;
     }
+
+    public ItemStorageInterface getDeliveryStorage(){
+        return this.deliveryStorage;
+    }
+
 
 
     
