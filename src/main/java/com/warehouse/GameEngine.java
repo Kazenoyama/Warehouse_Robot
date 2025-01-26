@@ -167,7 +167,7 @@ public class GameEngine {
         return null;
     }
 
-    private void instantiateShelfWithItem(){
+    public void instantiateShelfWithItem(){
         this.getListShelf().get(1).addItem(new Item(ItemEnum.FOOD, 0, 1000));
         this.getListShelf().get(2).addItem(new Item(ItemEnum.DRINK, 0, 1000));
         this.getListShelf().get(3).addItem(new Item(ItemEnum.ELECTRONICS, 0, 1000));
