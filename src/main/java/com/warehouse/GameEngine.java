@@ -106,10 +106,10 @@ public class GameEngine {
         if(robot.getPosition() != this.storagePos){
             robot.getPosition().x = this.storagePos.x;
             robot.getPosition().y = this.storagePos.y;
+            robot.getPosition().x += 1;
         }
 
         for (Robot r : this.ListRobot){
-            System.out.println(r.getPosition());
             if(r.getPosition().x == robot.getPosition().x && r.getPosition().y == robot.getPosition().y){
                 return false;
             }
@@ -167,19 +167,20 @@ public class GameEngine {
         return this.deliveryPos;
     }
 
-    // public void executeMoveFromPendingOrder(){
-    //     for (Robot robot : this.pendingRobotOrder.keySet()) {
-    //         List<Order> orders = this.pendingRobotOrder.get(robot);
-    //         if (orders != null && !orders.isEmpty()) {
-    //             Order order = orders.remove(0);
-    //             RobotCommand command = new TransferItemCommand(robot, order);
-    //             command.execute();
-    //             if (orders.isEmpty()) {
-    //                 this.pendingRobotOrder.remove(robot);
-    //             }
-    //         }
-    //     }
-    // }
+    public void executeMoveFromPendingOrder(){
+        this.pendingRobotOrder = this.decisionMaker.getPendingRobotOrder();
+        for (Robot robot : this.pendingRobotOrder.keySet()) {
+            List<Order> orders = this.pendingRobotOrder.get(robot);
+            if (orders != null && !orders.isEmpty()) {
+                Order order = orders.remove(0);
+                RobotCommand command = new TransferItemCommand(robot, order);
+                command.execute();
+                if (orders.isEmpty()) {
+                    this.pendingRobotOrder.remove(robot);
+                }
+            }
+        }
+    }
 
     public ItemStorageInterface getDeliveryStorage(){
         return this.deliveryStorage;
@@ -192,32 +193,44 @@ public class GameEngine {
     }
 
     private void randomCommand(){
-        int random = (int)(Math.random() * 3);
-        if(random == 0){
-            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-            List<Integer> quantity = List.of(2, 3, 4);
-            this.addCommand(item, quantity);
-        }
-        else if(random == 1){
-            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-            List<Integer> quantity = List.of(2, 3, 4);
-            this.addCommand(item, quantity);
-        }
-        else{
-            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-            List<Integer> quantity = List.of(2, 3, 4);
-            this.addCommand(item, quantity);
-        }
+        // int random = (int)(Math.random() * 3);
+        // if(random == 0){
+        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        //     List<Integer> quantity = List.of(2, 3, 4);
+        //     this.addCommand(item, quantity);
+        // }
+        // else if(random == 1){
+        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        //     List<Integer> quantity = List.of(2, 3, 4);
+        //     this.addCommand(item, quantity);
+        // }
+        // else{
+        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        //     List<Integer> quantity = List.of(2, 3, 4);
+        //     this.addCommand(item, quantity);
+        // }
+
+        List<ItemEnum> item = List.of(ItemEnum.FOOD);
+        List<Integer> quantity = List.of(2);
+        this.addCommand(item, quantity);
     }
 
     public void start(){
-        randomCommand();
-        this.decisionMaker.addToListOrderFromCommand(this.commandList.get(0));
-        randomCommand();
-        this.decisionMaker.addToListOrderFromCommand(this.commandList.get(1));
-        this.decisionMaker.attributeOrderToRobot();
-        this.display.updateDisplayForRobotMoving();
+        this.addRobot(new Robot(new Pos(0,0), this.warehouseMap, 10));
+        Robot robot = this.ListRobot.get(0);
+        this.randomCommand();
+        this.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,5));
+        Order order = new Order(ItemEnum.FOOD, this.ListShelf.get(1), this.deliveryStorage);
+
+        RobotCommand command = new TransferItemCommand(robot, order);
+        command.execute();
+        robot.update();
+        this.display.updateMapDisplayWithColor();
         
+    }
+
+    public void run(){
+  
     }
 
     
