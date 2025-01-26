@@ -33,7 +33,7 @@ public class Robot {
         {
             this.currentOrder = order;
             this.currentState = StateEnum.PICKING;
-            this.path = pathFinding.computeShortestPath(this.position, currentOrder.storage.getPosition());
+            this.path = computeShortestPathAvecDecalage(currentOrder.storage.getPosition());
             return true;
         }
         return false;
@@ -44,7 +44,8 @@ public class Robot {
             if(isRobotInRangeOfShelf(currentOrder.storage)){
                 pickItemInStorage(currentOrder.item, currentOrder.storage);
                 this.currentState = StateEnum.DROPPING;
-                this.path = pathFinding.computeShortestPath(this.position, currentOrder.delivery.getPosition());
+                Pos pos = currentOrder.delivery.getPosition();
+                this.path = computeShortestPathAvecDecalage(currentOrder.delivery.getPosition());
                 return;
             }else{
                 moveTowards();
@@ -65,8 +66,27 @@ public class Robot {
 
         if(this.currentState == StateEnum.IDLE){
             moveTowards();
+        }     
+    }
+
+    private List<Pos>computeShortestPathAvecDecalage(Pos target){
+        Pos pos = null;
+        Pos[] possiblePositions = {
+            new Pos(target.x, target.y-1),
+            new Pos(target.x, target.y+1),
+            new Pos(target.x-1, target.y),
+            new Pos(target.x+1, target.y)
+        };
+
+        for (Pos possiblePos : possiblePositions) {
+            if (map.isMapPositionWalkable(possiblePos)) {
+                pos = possiblePos;
+                break;
+            }
         }
-                
+        if(pos == null)
+            throw new IllegalStateException("No walkable position found to reach target");
+        return pathFinding.computeShortestPath(this.position, pos);
     }
 
     private void moveTowards(){
