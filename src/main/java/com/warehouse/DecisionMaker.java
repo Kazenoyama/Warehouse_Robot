@@ -25,13 +25,13 @@ public class DecisionMaker {
     private Pos deliveryPos;
     private ItemStorageInterface deliveryStorage;
 
-    public DecisionMaker(List<Robot> ListRobot, List<ItemStorageInterface> ListShelf, List<Map<ItemEnum, Integer>> commandList, Pos storagePos, Pos deliveryPos, ItemStorageInterface deliveryStorage) {
-        this.ListRobot = ListRobot;
-        this.ListShelf = ListShelf;
-        this.commandList = commandList;
-        this.storagePos = storagePos;
-        this.deliveryPos = deliveryPos;
-        this.deliveryStorage = deliveryStorage;
+    public DecisionMaker(GameEngine game){
+        this.ListRobot = game.getListRobot();
+        this.ListShelf = game.getListShelf();
+        this.commandList = game.getCommandList();
+        this.storagePos = game.getStoragePos();
+        this.deliveryPos = game.getDeliveryPos();
+        this.deliveryStorage = game.getDeliveryStorage();
         this.orderList = new ArrayList<>();
         this.pendingRobotOrder = new HashMap<>();
     }
