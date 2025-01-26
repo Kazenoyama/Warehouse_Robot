@@ -58,6 +58,19 @@ public class DecisionMaker {
         }
     }
 
+    public void addToListOrderFromCommand(Map<ItemEnum, Integer> command){
+        List<Order> orderFromCommand = new ArrayList<>();
+        for (ItemEnum item : command.keySet()){
+            for (ItemStorageInterface shelf : ListShelf){
+                if(shelf.contains(item)){
+                    orderFromCommand.add(new Order(item, shelf, deliveryStorage));
+                    break;
+                }
+            }
+        }
+        orderList.add(orderFromCommand);
+    }
+
     public void removeFirstElementFromOrderList(){
         orderList.remove(0);
     }
