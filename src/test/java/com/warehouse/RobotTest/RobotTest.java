@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import com.warehouse.Item.Item;
 import com.warehouse.Item.ItemEnum;
 import com.warehouse.Map.Pos;
+import com.warehouse.Map.TileEnum;
 import com.warehouse.Map.WarehouseMap;
+import com.warehouse.Robot.Order;
 import com.warehouse.Robot.Robot;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Storage.ItemStorageInterface;
@@ -99,4 +101,76 @@ public class RobotTest {
             robot.dropItemInHandInStorage(storage);
         });
     }
+
+    @Test
+    public void testRobotCanPickAndDropItems_WhenShelfAreBothInRangeAtInit(){
+        WarehouseMap map = new WarehouseMap(5, 5);
+        map.changeTileType(0, 0, TileEnum.STORAGE);
+        map.changeTileType(0, 2, TileEnum.STORAGE);
+        ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
+        storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 2));
+        Robot robot = new Robot(new Pos(0, 1), map, 5);
+
+        robot.giveOrder(new Order(ItemEnum.CLOTHES, storage, storage2));
+        robot.update();
+        assertEquals(5, robot.getItemInHand().getVolume());
+        assertEquals(0, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        robot.update();
+        assertEquals(5, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+    }
+
+    @Test
+    public void testRobotCanPickAndDropItems_WhenShelfAreNotInRangeAtInit(){
+        WarehouseMap map = new WarehouseMap(6, 6);
+        ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
+        storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 5));
+        Robot robot = new Robot(new Pos(0, 2), map, 5);
+
+        robot.giveOrder(new Order(ItemEnum.CLOTHES, storage, storage2));
+        robot.update();
+        assertEquals(new Pos(0, 1), robot.getPosition());
+        robot.update();
+        assertEquals(5, robot.getItemInHand().getVolume());
+        assertEquals(0, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        robot.update();
+        assertEquals(new Pos(0, 2), robot.getPosition());
+        robot.update();
+        assertEquals(new Pos(0, 3), robot.getPosition());
+        robot.update();
+        assertEquals(new Pos(0, 4), robot.getPosition());
+
+        robot.update();
+        assertEquals(5, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        assertEquals(null, robot.getItemInHand());
+
+        robot.update();
+        assertEquals(new Pos(0, 3), robot.getPosition());
+
+        robot.update();
+        assertEquals(new Pos(0, 2), robot.getPosition());
+
+        robot.update();
+        assertEquals(new Pos(0, 2), robot.getPosition());
+
+        robot.giveOrder(new Order(ItemEnum.CLOTHES, storage2, storage));
+        robot.update();
+        assertEquals(new Pos(0, 3), robot.getPosition());
+        robot.update();
+        assertEquals(new Pos(0, 4), robot.getPosition());
+        robot.update();
+        assertEquals(5, robot.getItemInHand().getVolume());
+        assertEquals(0, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        robot.update();
+        assertEquals(new Pos(0, 3), robot.getPosition());
+        robot.update();
+        assertEquals(new Pos(0, 2), robot.getPosition());
+        robot.update();
+        assertEquals(new Pos(0, 1), robot.getPosition());
+        robot.update();
+        assertEquals(5, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        assertEquals(null, robot.getItemInHand());
+    }
+
 }

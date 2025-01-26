@@ -1,5 +1,7 @@
 package com.warehouse.Robot;
 
+import java.util.List;
+
 import com.warehouse.Item.Item;
 import com.warehouse.Item.ItemEnum;
 import com.warehouse.Map.Pos;
@@ -12,11 +14,65 @@ public class Robot {
     private Item itemInHand = null;
     private int capacity;
     private final WarehouseMap map;
+    private StateEnum currentState = StateEnum.IDLE;
+    private Order currentOrder = null;
+    private PathFinding pathFinding;
+    private final Pos creationPosition;
+    List<Pos> path;
 
     public Robot(Pos position, WarehouseMap map, int capacity) {
         this.map = map;
         this.position = position;
         this.capacity = capacity;
+        this.pathFinding = new PathFinding(map);
+        this.creationPosition = position;
+    }
+
+    public boolean giveOrder(Order order){
+        if(currentState == StateEnum.IDLE)
+        {
+            this.currentOrder = order;
+            this.currentState = StateEnum.PICKING;
+            this.path = pathFinding.computeShortestPath(this.position, currentOrder.storage.getPosition());
+            return true;
+        }
+        return false;
+    }
+
+    public void update(){
+        if(this.currentState == StateEnum.PICKING){
+            if(isRobotInRangeOfShelf(currentOrder.storage)){
+                pickItemInStorage(currentOrder.item, currentOrder.storage);
+                this.currentState = StateEnum.DROPPING;
+                this.path = pathFinding.computeShortestPath(this.position, currentOrder.delivery.getPosition());
+                return;
+            }else{
+                moveTowards();
+            }
+        }
+
+        if(this.currentState == StateEnum.DROPPING){
+            if(isRobotInRangeOfShelf(currentOrder.delivery)){
+                dropItemInHandInStorage(currentOrder.delivery);
+                this.currentState = StateEnum.IDLE;
+                this.currentOrder = null;
+                this.path = pathFinding.computeShortestPath(this.position, creationPosition);
+                return;
+            }else{
+                moveTowards();
+            }
+        }
+
+        if(this.currentState == StateEnum.IDLE){
+            moveTowards();
+        }
+                
+    }
+
+    private void moveTowards(){
+        if(path.size() > 1)
+            this.position = path.remove(1); //1 because the first element is the current position in case we cannot move
+
     }
 
     public Pos getPosition() {
