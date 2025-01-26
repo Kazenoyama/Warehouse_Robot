@@ -129,11 +129,18 @@ public class RobotTest {
         Robot robot = new Robot(new Pos(0, 2), map, 5);
 
         robot.giveOrder(new Order(ItemEnum.CLOTHES, storage, storage2));
+        
+        //Robot is moving toward the first storage
         robot.update();
         assertEquals(new Pos(0, 1), robot.getPosition());
+        
+
+        //robot is picking the item
         robot.update();
         assertEquals(5, robot.getItemInHand().getVolume());
         assertEquals(0, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        
+        //robot is moving toward the second storage
         robot.update();
         assertEquals(new Pos(0, 2), robot.getPosition());
         robot.update();
@@ -141,33 +148,44 @@ public class RobotTest {
         robot.update();
         assertEquals(new Pos(0, 4), robot.getPosition());
 
+        //robot is dropping the item
         robot.update();
         assertEquals(5, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
         assertEquals(null, robot.getItemInHand());
 
+        //robot is moving back to the initial position
         robot.update();
         assertEquals(new Pos(0, 3), robot.getPosition());
 
+        //robot is at the initial position and stay until the next order
         robot.update();
         assertEquals(new Pos(0, 2), robot.getPosition());
-
         robot.update();
         assertEquals(new Pos(0, 2), robot.getPosition());
 
         robot.giveOrder(new Order(ItemEnum.CLOTHES, storage2, storage));
+
+        //Robot is moving toward the second storage
         robot.update();
         assertEquals(new Pos(0, 3), robot.getPosition());
         robot.update();
         assertEquals(new Pos(0, 4), robot.getPosition());
+        
+
+        //robot is picking the item
         robot.update();
         assertEquals(5, robot.getItemInHand().getVolume());
         assertEquals(0, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        
+        //robot is moving toward the first storage
         robot.update();
         assertEquals(new Pos(0, 3), robot.getPosition());
         robot.update();
         assertEquals(new Pos(0, 2), robot.getPosition());
         robot.update();
         assertEquals(new Pos(0, 1), robot.getPosition());
+
+        //robot is dropping the item
         robot.update();
         assertEquals(5, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
         assertEquals(null, robot.getItemInHand());
