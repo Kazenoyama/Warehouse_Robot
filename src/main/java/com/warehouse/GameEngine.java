@@ -41,7 +41,7 @@ public class GameEngine {
         createWarehouseMap();
         createJFramePanel_And_Display();
         giveTilesCorrectType();
-        this.display.updateMapDisplayWithColor();     
+        this.display.updateMapDisplayWithColor();   
     }
 
     private void initVariables(Integer[][] mapTiles){
@@ -192,44 +192,68 @@ public class GameEngine {
         decisionMaker.attributeOrderToRobot();
     }
 
-    private void randomCommand(){
-        // int random = (int)(Math.random() * 3);
-        // if(random == 0){
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
-        // else if(random == 1){
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
-        // else{
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
+    private ItemStorageInterface findShelfWithItem(ItemEnum item){
+        for (ItemStorageInterface shelf : this.ListShelf){
+            if(shelf.contains(item)){
+                return shelf;
+            }
+        }
+        return null;
+    }
 
-        List<ItemEnum> item = List.of(ItemEnum.FOOD);
-        List<Integer> quantity = List.of(2);
-        this.addCommand(item, quantity);
+    private void instantiateShelfWithItem(){
+        this.getListShelf().get(1).addItem(new Item(ItemEnum.FOOD, 0, 10));
+        this.getListShelf().get(2).addItem(new Item(ItemEnum.DRINK, 0, 10));
+        this.getListShelf().get(3).addItem(new Item(ItemEnum.ELECTRONICS, 0, 10));
+        this.getListShelf().get(4).addItem(new Item(ItemEnum.CLOTHES, 0, 10));
+        this.getListShelf().get(5).addItem(new Item(ItemEnum.TOYS, 0, 10));
+        this.getListShelf().get(6).addItem(new Item(ItemEnum.TOOLS, 0, 10));
+        this.getListShelf().get(7).addItem(new Item(ItemEnum.FURNITURE, 0, 10));
+        this.getListShelf().get(8).addItem(new Item(ItemEnum.COMPUTER, 0, 10));
+        this.getListShelf().get(9).addItem(new Item(ItemEnum.DENTIFRICE, 0, 10));
+        this.getListShelf().get(10).addItem(new Item(ItemEnum.PAIN, 0, 10));
+        this.getListShelf().get(11).addItem(new Item(ItemEnum.OTHER, 0, 10));
     }
 
     public void start(){
-        this.addRobot(new Robot(new Pos(0,0), this.warehouseMap, 10));
-        Robot robot = this.ListRobot.get(0);
-        this.randomCommand();
-        this.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,5));
-        Order order = new Order(ItemEnum.FOOD, this.ListShelf.get(1), this.deliveryStorage);
+        // addRobot(new Robot(new Pos(0, 0), this.warehouseMap, 1));
+        // addRobot(new Robot(new Pos(0, 0), this.warehouseMap, 1));
+        // addRobot(new Robot(new Pos(0, 0), this.warehouseMap, 1));
+        // addRobot(new Robot(new Pos(0, 0), this.warehouseMap, 1));
+        // instantiateShelfWithItem();
+    
 
-        RobotCommand command = new TransferItemCommand(robot, order);
-        command.execute();
-        robot.update();
-        this.display.updateMapDisplayWithColor();
-        
+        // RobotCommand command = new TransferItemCommand(getListRobot().get(0), ItemEnum.CLOTHES, findShelfWithItem(ItemEnum.CLOTHES), getDeliveryStorage());
+        // RobotCommand command2 = new TransferItemCommand(getListRobot().get(1), ItemEnum.FOOD, findShelfWithItem(ItemEnum.FOOD), getDeliveryStorage());
+        // RobotCommand command3 = new TransferItemCommand(getListRobot().get(2), ItemEnum.DRINK, findShelfWithItem(ItemEnum.DRINK), getDeliveryStorage());
+        // RobotCommand command4 = new TransferItemCommand(getListRobot().get(3), ItemEnum.ELECTRONICS, findShelfWithItem(ItemEnum.ELECTRONICS), getDeliveryStorage());
+
+        // command.execute();
+        // command2.execute();
+        // command3.execute();
+        // command4.execute();
+
+        run();
+
+
+
+
+
+  
     }
 
     public void run(){
+        int i = 0;
+        while (i < 200){
+            try{Thread.sleep(200);
+                for (Robot robot : this.ListRobot){
+                    robot.update();
+                }
+                updateRobotPosition();
+                i++;
+            }
+            catch(InterruptedException e){System.out.println(e);}
+        }
   
     }
 
