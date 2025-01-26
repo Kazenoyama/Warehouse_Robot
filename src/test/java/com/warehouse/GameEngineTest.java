@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import com.warehouse.Map.Pos;
 import com.warehouse.Robot.Robot;
+import com.warehouse.Item.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 
 public class GameEngineTest {
 
@@ -96,7 +99,48 @@ public class GameEngineTest {
         assertEquals(new Pos(2,2), gameEngine.getListShelf().get(7).getPosition());
         assertEquals(new Pos(3,0), gameEngine.getListShelf().get(8).getPosition());
         assertEquals(new Pos(3,1), gameEngine.getListShelf().get(9).getPosition());
+    }
 
+    @Test
+    public void createCommandList_StoreItInGameEngine(){
+        Integer[][] mapTiles = {{1, 1, 1}, {1, 2, 4}, {1, 1, 1},{1, 3, 2}};
+        GameEngine gameEngine = new GameEngine(mapTiles);
+
+        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        List<Integer> quantity = List.of(2, 3, 4);
+        gameEngine.addCommand(item, quantity);
+        assertEquals(2, gameEngine.getCommandList().get(0).get(ItemEnum.FOOD));
+        assertEquals(3, gameEngine.getCommandList().get(0).get(ItemEnum.DRINK));
+        assertEquals(4, gameEngine.getCommandList().get(0).get(ItemEnum.ELECTRONICS));
+    }
+
+    @Test
+    public void addMultipleCommand_removeOneOfThemInParticular(){
+        Integer[][] mapTiles = {{1, 1, 1}, {1, 2, 4}, {1, 1, 1},{1, 3, 2}};
+        GameEngine gameEngine = new GameEngine(mapTiles);
+
+        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        List<Integer> quantity = List.of(2, 3, 4);
+        gameEngine.addCommand(item, quantity);
+
+        List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+        List<Integer> quantity2 = List.of(2, 3, 4);
+        gameEngine.addCommand(item2, quantity2);
+
+        assertEquals(2, gameEngine.getCommandList().get(0).get(ItemEnum.FOOD));
+        assertEquals(3, gameEngine.getCommandList().get(0).get(ItemEnum.DRINK));
+        assertEquals(4, gameEngine.getCommandList().get(0).get(ItemEnum.ELECTRONICS));
+
+        assertEquals(2, gameEngine.getCommandList().get(1).get(ItemEnum.FOOD));
+        assertEquals(3, gameEngine.getCommandList().get(1).get(ItemEnum.DRINK));
+        assertEquals(4, gameEngine.getCommandList().get(1).get(ItemEnum.ELECTRONICS));
+
+        gameEngine.removeCommand(0);
+
+        assertEquals(1, gameEngine.getCommandList().size());
+        assertEquals(2, gameEngine.getCommandList().get(0).get(ItemEnum.FOOD));
+        assertEquals(3, gameEngine.getCommandList().get(0).get(ItemEnum.DRINK));
+        assertEquals(4, gameEngine.getCommandList().get(0).get(ItemEnum.ELECTRONICS));
     }
 
 
