@@ -105,6 +105,8 @@ public class RobotTest {
     @Test
     public void testRobotCanPickAndDropItems_WhenShelfAreBothInRangeAtInit(){
         WarehouseMap map = new WarehouseMap(5, 5);
+        map.changeTileType(0, 0, TileEnum.SHELF);
+        map.changeTileType(0, 2, TileEnum.SHELF);
         ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
         storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
         ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 2));
@@ -121,6 +123,8 @@ public class RobotTest {
     @Test
     public void testRobotCanPickAndDropItems_WhenShelfAreNotInRangeAtInit(){
         WarehouseMap map = new WarehouseMap(6, 6);
+        map.changeTileType(0, 0, TileEnum.SHELF);
+        map.changeTileType(0, 5, TileEnum.SHELF);
         ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
         storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
         ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 5));
