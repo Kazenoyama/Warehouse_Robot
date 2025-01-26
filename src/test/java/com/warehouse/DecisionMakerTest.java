@@ -90,11 +90,8 @@ public class DecisionMakerTest {
         decisionMaker.createListOrder();
 
         decisionMaker.attributeOrderToRobot();
-        assertFalse(decisionMaker.attributeOrderToRobot());
-
-        decisionMaker.getPendingRobotOrder().remove(robot);
         assertTrue(decisionMaker.attributeOrderToRobot());
-        assertEquals(0, decisionMaker.getOrderList().size());
+        assertEquals(2,decisionMaker.getListRobot().size());
     }
 
     @Test

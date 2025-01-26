@@ -15,8 +15,8 @@ public class Main {
             {2,2,2,2,2,2,2,2,2,2}
         };
         GameEngine game = new GameEngine(mapTile);
-        //DecisionMaker decisionMaker = new DecisionMaker(game);
-
-        
+        DecisionMaker decisionMaker = new DecisionMaker(game);
+        game.setDecisionMaker(decisionMaker);  
+        game.start();
     }
 }

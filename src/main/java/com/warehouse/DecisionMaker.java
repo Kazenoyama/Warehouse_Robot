@@ -24,8 +24,11 @@ public class DecisionMaker {
     private Pos storagePos;
     private Pos deliveryPos;
     private ItemStorageInterface deliveryStorage;
+    private int maxRobotCapacity;
+    private GameEngine game;
 
     public DecisionMaker(GameEngine game){
+        this.game = game;
         this.ListRobot = game.getListRobot();
         this.ListShelf = game.getListShelf();
         this.commandList = game.getCommandList();
@@ -34,6 +37,7 @@ public class DecisionMaker {
         this.deliveryStorage = game.getDeliveryStorage();
         this.orderList = new ArrayList<>();
         this.pendingRobotOrder = new HashMap<>();
+        this.maxRobotCapacity = 3;
     }
 
     private boolean askRobot(Robot robot){
@@ -76,6 +80,11 @@ public class DecisionMaker {
     }
 
     public boolean attributeOrderToRobot(){
+        if(ListRobot == null || ListRobot.isEmpty()){
+            Robot robot = new Robot(new Pos(0,0), game.getWarehouseMap(), 10);
+            game.addRobot(robot);
+            ListRobot = game.getListRobot();
+        }
         for (Robot robot : ListRobot){
             if(askRobot(robot)){
                 pendingRobotOrder.put(robot, orderList.get(0));
@@ -83,7 +92,19 @@ public class DecisionMaker {
                 return true;
             }
         }
+        if(ListRobot.size() < maxRobotCapacity){
+            Robot robot = new Robot(new Pos(0,0), game.getWarehouseMap(), 10);
+            game.addRobot(robot);
+            ListRobot = game.getListRobot();
+            pendingRobotOrder.put(robot, orderList.get(0));
+            removeFirstElementFromOrderList();
+            return true;
+        }
         return false;
+    }
+
+    public List<Robot> getListRobot(){
+        return ListRobot;
     }
 
     public List<List<Order>> getOrderList(){

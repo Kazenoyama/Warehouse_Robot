@@ -33,6 +33,7 @@ public class GameEngine {
     private Pos deliveryPos;
     private ItemStorageInterface deliveryStorage;
     private Map<Robot, List<Order>> pendingRobotOrder;
+    private DecisionMaker decisionMaker;
 
     public GameEngine(Integer[][] mapTiles){
         initVariables(mapTiles);
@@ -183,6 +184,41 @@ public class GameEngine {
     public ItemStorageInterface getDeliveryStorage(){
         return this.deliveryStorage;
     }
+
+    public void setDecisionMaker(DecisionMaker decisionMaker){
+        this.decisionMaker = decisionMaker;
+        decisionMaker.createListOrder();
+        decisionMaker.attributeOrderToRobot();
+    }
+
+    private void randomCommand(){
+        int random = (int)(Math.random() * 3);
+        if(random == 0){
+            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+            List<Integer> quantity = List.of(2, 3, 4);
+            this.addCommand(item, quantity);
+        }
+        else if(random == 1){
+            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+            List<Integer> quantity = List.of(2, 3, 4);
+            this.addCommand(item, quantity);
+        }
+        else{
+            List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+            List<Integer> quantity = List.of(2, 3, 4);
+            this.addCommand(item, quantity);
+        }
+    }
+
+    public void start(){
+        randomCommand();
+        this.decisionMaker.addToListOrderFromCommand(this.commandList.get(0));
+        this.decisionMaker.attributeOrderToRobot();
+        this.display.updateDisplayForRobotMoving();
+        
+    }
+
+    
 
 
 
