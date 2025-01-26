@@ -15,55 +15,36 @@ import com.warehouse.Storage.infiniteStorageSize;
 
 public class Main {
     public static void main(String[] args) {
-        // WarehouseMap map = new WarehouseMap(5, 5);
-        // map.changeTileType(0, 0, TileEnum.SHELF);
-        // map.changeTileType(0, 2, TileEnum.SHELF);
-        // ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
-        // storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
-        // ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 2));
-        // Robot robot = new Robot(new Pos(2, 0), map, 5);
-
         
-
-        // JFrame frame = new JFrame("Warehouse isTheDisplayShowingTheRobot");
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Display display = new Display(map, 50);
-
-        // frame.add(display);
-        // frame.setSize(500, 500);
-        // frame.setVisible(true);
-
-        // display.updateMapDisplayWithColor();
-
-        // display.displayRobot(robot);
-        
-
-        // try{Thread.sleep(1000);}
-        // catch(InterruptedException e){System.out.println(e);}
-        // RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, storage, storage2);
-        // command.execute();
-        // robot.update();
-        // frame.dispose();
-
         Integer[][] mapTile = {
-            {1,0,1,0,0},
-            {0,0,0,0,0},
-            {3,0,0,0,4},
-            {0,0,0,0,0},
-            {0,0,0,0,0}
+            {2,2,2,2,2,2,2,2,2,2},
+            {2,0,0,0,0,0,0,0,0,4},
+            {2,1,1,0,0,0,2,0,2,2},
+            {2,2,2,1,0,1,2,0,1,2},
+            {2,1,1,0,0,1,2,0,1,2},
+            {2,0,0,0,0,0,2,0,0,2},
+            {2,0,0,0,0,0,0,0,1,2},
+            {2,1,0,0,1,2,0,0,0,2},
+            {2,1,0,0,1,2,0,0,0,3},
+            {2,2,2,2,2,2,2,2,2,2}
         };
         GameEngine game = new GameEngine(mapTile);
         game.addRobot(new Robot(new Pos(0,2),game.getWarehouseMap(), 1));
-        game.getListShelf().get(0).addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        game.addRobot(new Robot(new Pos(0,2),game.getWarehouseMap(), 1));
+        game.getListShelf().get(3).addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        game.getListShelf().get(6).addItem(new Item(ItemEnum.FOOD, 0, 5));
         Robot robot = game.getListRobot().get(0);
-        RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, game.getListShelf().get(0), game.getDeliveryStorage());
+        Robot robot2 = game.getListRobot().get(1);
+        RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, game.getListShelf().get(3), game.getDeliveryStorage());
+        RobotCommand command2 = new TransferItemCommand(robot2, ItemEnum.FOOD, game.getListShelf().get(6), game.getDeliveryStorage());
         command.execute();
+        command2.execute();
 
         int i = 0;
-        while (i < 10){
-            try{Thread.sleep(1000);
+        while (i < 50){
+            try{Thread.sleep(200);
                 robot.update();
+                robot2.update();
                 game.updateRobotPosition();
                 i++;
             }

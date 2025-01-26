@@ -106,14 +106,14 @@ public class GameEngine {
         if(robot.getPosition() != this.storagePos){
             robot.getPosition().x = this.storagePos.x;
             robot.getPosition().y = this.storagePos.y;
-            robot.getPosition().x += 1;
+            robot.getPosition().y -= 1;
         }
 
-        for (Robot r : this.ListRobot){
-            if(r.getPosition().x == robot.getPosition().x && r.getPosition().y == robot.getPosition().y){
-                return false;
-            }
-        }
+        // for (Robot r : this.ListRobot){
+        //     if(r.getPosition().x == robot.getPosition().x && r.getPosition().y == robot.getPosition().y){
+        //         return false;
+        //     }
+        // }
 
         this.ListRobot.add(robot);
         this.display.displayRobot(robot);
