@@ -197,21 +197,40 @@ public class RobotTest {
 
     @Test
     public void testCommandInterface(){
+        //Map creation
         WarehouseMap map = new WarehouseMap(5, 5);
         map.changeTileType(0, 0, TileEnum.SHELF);
         map.changeTileType(0, 2, TileEnum.SHELF);
-        ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
-        storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
-        ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 2));
+
+        //storage creation
+        ItemStorageInterface originStorage = new infiniteStorageSize(new Pos(0, 0));
+        originStorage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        //target is an empty storage
+        ItemStorageInterface targetStorage = new infiniteStorageSize(new Pos(0, 2));
+
         Robot robot = new Robot(new Pos(0, 1), map, 5);
 
-        RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, storage, storage2);
-        command.execute();
-        robot.update();
-        robot.update();
-        assertEquals(5, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+        //command 1 bring the item from the origin storage to the target storage
+        RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, originStorage, targetStorage);
 
-        
+        //command 2 bring the item from the target storage to the origin storage
+        RobotCommand command2 = new TransferItemCommand(robot, ItemEnum.CLOTHES, targetStorage, originStorage);
+
+        assertTrue(command.execute()); //robot is available
+        assertFalse(command2.execute()); //robot is busy and doesnt accept the task
+        multipleRobotUpdate(robot, 2);
+        assertEquals(5, targetStorage.getNumberOfItemInStorage(ItemEnum.CLOTHES)); //robot as unloaded the item
+
+        assertTrue(command2.execute()); //robot is now available and accept the task
+        multipleRobotUpdate(robot, 2);
+        assertEquals(0, targetStorage.getNumberOfItemInStorage(ItemEnum.CLOTHES)); //no item left in the target storage
+        assertEquals(5, originStorage.getNumberOfItemInStorage(ItemEnum.CLOTHES)); //robot as unloaded the item
+    }
+
+    private void multipleRobotUpdate(Robot robot, int numberOfUpdate){
+        for(int i = 0; i < numberOfUpdate; i++){
+            robot.update();
+        }
     }
 
 }
