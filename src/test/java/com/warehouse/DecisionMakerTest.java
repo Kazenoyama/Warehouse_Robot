@@ -8,6 +8,8 @@ import com.warehouse.Storage.ItemStorageInterface;
 import com.warehouse.Storage.infiniteStorageSize;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Map.Pos;
+import com.warehouse.Map.WarehouseMap;
+import com.warehouse.GameEngine;    
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,121 +22,75 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DecisionMakerTest {
 
-    // @Test
-    // public void test(){
+    @Test
+    public void atInitialisation(){
 
-    //     Integer[][] mapTile = {
-    //         {2,2,2,2,2,2,2,2,2,2},
-    //         {2,0,0,0,0,0,0,0,0,4},
-    //         {2,1,1,0,0,0,2,0,2,2},
-    //         {2,2,2,1,0,1,2,0,1,2},
-    //         {2,1,1,0,0,1,2,0,1,2},
-    //         {2,0,0,0,0,0,2,0,0,2},
-    //         {2,0,0,0,0,0,0,0,1,2},
-    //         {2,1,0,0,1,2,0,0,0,2},
-    //         {2,1,0,0,1,2,0,0,0,3},
-    //         {2,2,2,2,2,2,2,2,2,2}
-    //     };
+        Integer[][] mapTile = {
+            {2,2,2,2,2,2,2,2,2,2},
+            {2,0,0,0,0,0,0,0,0,4},
+            {2,1,1,0,0,0,2,0,2,2},
+            {2,2,2,1,0,1,2,0,1,2},
+            {2,1,1,0,0,1,2,0,1,2},
+            {2,0,0,0,0,0,2,0,0,2},
+            {2,0,0,0,0,0,0,0,1,2},
+            {2,1,0,0,1,2,0,0,0,2},
+            {2,1,0,0,1,2,0,0,0,3},
+            {2,2,2,2,2,2,2,2,2,2}
+        };
 
-    //     GameEngine game = new GameEngine(mapTile);
-    //     DecisionMaker decisionMaker = new DecisionMaker(game);
-    // }
+        GameEngine game = new GameEngine(mapTile);
+        DecisionMaker decisionMaker = new DecisionMaker(game);
+        assertNotNull(decisionMaker);
+        assertEquals(game, decisionMaker.getGame());
+    }
 
-    // @Test
-    // public void whenGivenAListOfCommand_TransformItInAListOfOrder(){
-        
-    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item, quantity);
+    @Test
+    public void createRobotTest(){
+        Integer[][] mapTile = {
+            {2,2,2,2,2,2,2,2,2,2},
+            {2,0,0,0,0,0,0,0,0,4},
+            {2,1,1,0,0,0,2,0,2,2},
+            {2,2,2,1,0,1,2,0,1,2},
+            {2,1,1,0,0,1,2,0,1,2},
+            {2,0,0,0,0,0,2,0,0,2},
+            {2,0,0,0,0,0,0,0,1,2},
+            {2,1,0,0,1,2,0,0,0,2},
+            {2,1,0,0,1,2,0,0,0,3},
+            {2,2,2,2,2,2,2,2,2,2}
+        };
 
-    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity2 = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item2, quantity2);
-    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
+        GameEngine game = new GameEngine(mapTile);
+        DecisionMaker decisionMaker = new DecisionMaker(game);
+        decisionMaker.createRobot();
+        assertEquals(1, game.getListRobot().size());
+    }
 
-    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-    //     decisionMaker.createListOrder();
+    @Test
+    public void giveTaskDeleveryTest(){
+        Integer[][] mapTile = {
+            {2,2,2,2,2,2,2,2,2,2},
+            {2,0,0,0,0,0,0,0,0,4},
+            {2,1,1,0,0,0,2,0,2,2},
+            {2,2,2,1,0,1,2,0,1,2},
+            {2,1,1,0,0,1,2,0,1,2},
+            {2,0,0,0,0,0,2,0,0,2},
+            {2,0,0,0,0,0,0,0,1,2},
+            {2,1,0,0,1,2,0,0,0,2},
+            {2,1,0,0,1,2,0,0,0,3},
+            {2,2,2,2,2,2,2,2,2,2}
+        };
 
-    //     List<Order> orderList = decisionMaker.getOrderList().get(0);
-    //     System.out.println(orderList);
-    //     assertEquals(3, orderList.size());
-    //     assertEquals(2, decisionMaker.getOrderList().size());
-    // }
+        GameEngine game = new GameEngine(mapTile);
+        DecisionMaker decisionMaker = new DecisionMaker(game);
 
-    // @Test
-    // public void removeFirstElementFromOrderList(){
+        game.instantiateShelfWithItem();
+        game.randomOrder();
+        decisionMaker.giveTaskDelevery();
 
-    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item, quantity);
+        assertEquals(1, game.getListRobot().size());
+        assertEquals(1, game.pendingRobotOrder.size());
+    }
 
-    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity2 = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item2, quantity2);
-    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
-
-    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-    //     decisionMaker.createListOrder();
-
-    //     decisionMaker.removeFirstElementFromOrderList();
-    //     assertEquals(1, decisionMaker.getOrderList().size());
-        
-    // }
-
-    // @Test
-    // public void giveAListOfOrderToOneRobot_WhileDoingIt_ItCantTakeAnotherOrder(){
-        
-    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item, quantity);
-
-    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity2 = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item2, quantity2);
-    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
-
-    //     Robot robot = new Robot(new Pos(0,0), gameEngine.getWarehouseMap(), 10);
-    //     gameEngine.getListRobot().add(robot);
-    //     //gameEngine.getListRobot().add(robot2);
-
-    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-    //     decisionMaker.createListOrder();
-
-    //     decisionMaker.attributeOrderToRobot();
-    //     assertTrue(decisionMaker.attributeOrderToRobot());
-    //     assertEquals(2,decisionMaker.getListRobot().size());
-    // }
-
-    // @Test
-    // public void addNewCommandFromTheGameEngine_TransformItInOrderList(){
-        
-    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item, quantity);
-
-    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-    //     List<Integer> quantity2 = List.of(2, 3, 4);
-    //     gameEngine.addCommand(item2, quantity2);
-    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
-
-    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-    //     decisionMaker.createListOrder();
-
-    //     gameEngine.addCommand(List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS), List.of(2, 3, 4));
-    //     decisionMaker.addToListOrderFromCommand(gameEngine.getCommandList().get(2));
-    //     assertEquals(3, decisionMaker.getOrderList().size());
-    // }
+    
     
 }
