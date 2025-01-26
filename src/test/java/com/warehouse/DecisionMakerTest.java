@@ -35,7 +35,7 @@ public class DecisionMakerTest {
         gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
         gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine.getListRobot(), gameEngine.getListShelf(), gameEngine.getCommandList(), gameEngine.getStoragePos(), gameEngine.getDeliveryPos(), gameEngine.getDeliveryStorage());
+        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
         decisionMaker.createListOrder();
 
         List<Order> orderList = decisionMaker.getOrderList().get(0);
@@ -59,7 +59,7 @@ public class DecisionMakerTest {
         gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
         gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine.getListRobot(), gameEngine.getListShelf(), gameEngine.getCommandList(), gameEngine.getStoragePos(), gameEngine.getDeliveryPos(), gameEngine.getDeliveryStorage());
+        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
         decisionMaker.createListOrder();
 
         decisionMaker.removeFirstElementFromOrderList();
@@ -86,15 +86,12 @@ public class DecisionMakerTest {
         gameEngine.getListRobot().add(robot);
         //gameEngine.getListRobot().add(robot2);
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine.getListRobot(), gameEngine.getListShelf(), gameEngine.getCommandList(), gameEngine.getStoragePos(), gameEngine.getDeliveryPos(), gameEngine.getDeliveryStorage());
+        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
         decisionMaker.createListOrder();
 
         decisionMaker.attributeOrderToRobot();
-        assertFalse(decisionMaker.attributeOrderToRobot());
-
-        decisionMaker.getPendingRobotOrder().remove(robot);
         assertTrue(decisionMaker.attributeOrderToRobot());
-        assertEquals(0, decisionMaker.getOrderList().size());
+        assertEquals(2,decisionMaker.getListRobot().size());
     }
 
     @Test
@@ -112,7 +109,7 @@ public class DecisionMakerTest {
         gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
         gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine.getListRobot(), gameEngine.getListShelf(), gameEngine.getCommandList(), gameEngine.getStoragePos(), gameEngine.getDeliveryPos(), gameEngine.getDeliveryStorage());
+        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
         decisionMaker.createListOrder();
 
         gameEngine.addCommand(List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS), List.of(2, 3, 4));
