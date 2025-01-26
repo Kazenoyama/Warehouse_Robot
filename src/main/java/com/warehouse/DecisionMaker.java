@@ -80,11 +80,15 @@ public class DecisionMaker {
     }
 
     public boolean attributeOrderToRobot(){
+        if(orderList.isEmpty()){
+            return false;
+        }
         if(ListRobot == null || ListRobot.isEmpty()){
             Robot robot = new Robot(new Pos(0,0), game.getWarehouseMap(), 10);
             game.addRobot(robot);
             ListRobot = game.getListRobot();
         }
+
         for (Robot robot : ListRobot){
             if(askRobot(robot)){
                 pendingRobotOrder.put(robot, orderList.get(0));
@@ -92,6 +96,7 @@ public class DecisionMaker {
                 return true;
             }
         }
+        
         if(ListRobot.size() < maxRobotCapacity){
             Robot robot = new Robot(new Pos(0,0), game.getWarehouseMap(), 10);
             game.addRobot(robot);

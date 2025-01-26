@@ -213,6 +213,8 @@ public class GameEngine {
     public void start(){
         randomCommand();
         this.decisionMaker.addToListOrderFromCommand(this.commandList.get(0));
+        randomCommand();
+        this.decisionMaker.addToListOrderFromCommand(this.commandList.get(1));
         this.decisionMaker.attributeOrderToRobot();
         this.display.updateDisplayForRobotMoving();
         
