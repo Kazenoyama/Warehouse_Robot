@@ -1,5 +1,6 @@
 package com.warehouse.Robot;
 
 public interface RobotCommand {
-    void execute();
+    //will return true if the robot is executing the command
+    boolean execute();
 }

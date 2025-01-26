@@ -16,10 +16,17 @@ public class TransferItemCommand implements RobotCommand {
         this.destinationStorage = destinationStorage;
     }
 
+    public TransferItemCommand(Robot robot, Order order) {
+        this.robot = robot;
+        this.item = order.item;
+        this.originStorage = order.storage;
+        this.destinationStorage = order.delivery;
+    }
+
     @Override
-    public void execute() {
+    public boolean execute() {
         Order order = new Order(item, originStorage, destinationStorage);
-        robot.giveOrder(order);
+        return robot.giveOrder(order);
     }
     
 }
