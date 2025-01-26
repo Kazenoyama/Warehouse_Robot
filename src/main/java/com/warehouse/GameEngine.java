@@ -78,7 +78,7 @@ public class GameEngine {
                         break;
                     case 1:
                         this.warehouseMap.changeTileType(i, j, TileEnum.SHELF);
-                        ItemStorageInterface shelf = new ItemShelf(new Pos(i,j), 10);
+                        ItemStorageInterface shelf = new ItemShelf(new Pos(i,j), 1000);
                         this.ListShelf.add(shelf);
                         break;
                     case 2:
@@ -168,17 +168,17 @@ public class GameEngine {
     }
 
     private void instantiateShelfWithItem(){
-        this.getListShelf().get(1).addItem(new Item(ItemEnum.FOOD, 0, 10));
-        this.getListShelf().get(2).addItem(new Item(ItemEnum.DRINK, 0, 10));
-        this.getListShelf().get(3).addItem(new Item(ItemEnum.ELECTRONICS, 0, 10));
-        this.getListShelf().get(4).addItem(new Item(ItemEnum.CLOTHES, 0, 10));
-        this.getListShelf().get(5).addItem(new Item(ItemEnum.TOYS, 0, 10));
-        this.getListShelf().get(6).addItem(new Item(ItemEnum.TOOLS, 0, 10));
-        this.getListShelf().get(7).addItem(new Item(ItemEnum.FURNITURE, 0, 10));
-        this.getListShelf().get(8).addItem(new Item(ItemEnum.COMPUTER, 0, 10));
-        this.getListShelf().get(9).addItem(new Item(ItemEnum.DENTIFRICE, 0, 10));
-        this.getListShelf().get(10).addItem(new Item(ItemEnum.PAIN, 0, 10));
-        this.getListShelf().get(11).addItem(new Item(ItemEnum.OTHER, 0, 10));
+        this.getListShelf().get(1).addItem(new Item(ItemEnum.FOOD, 0, 1000));
+        this.getListShelf().get(2).addItem(new Item(ItemEnum.DRINK, 0, 1000));
+        this.getListShelf().get(3).addItem(new Item(ItemEnum.ELECTRONICS, 0, 1000));
+        this.getListShelf().get(4).addItem(new Item(ItemEnum.CLOTHES, 0, 1000));
+        this.getListShelf().get(5).addItem(new Item(ItemEnum.TOYS, 0, 1000));
+        this.getListShelf().get(6).addItem(new Item(ItemEnum.TOOLS, 0, 1000));
+        this.getListShelf().get(7).addItem(new Item(ItemEnum.FURNITURE, 0, 1000));
+        this.getListShelf().get(8).addItem(new Item(ItemEnum.COMPUTER, 0, 1000));
+        this.getListShelf().get(9).addItem(new Item(ItemEnum.DENTIFRICE, 0, 1000));
+        this.getListShelf().get(10).addItem(new Item(ItemEnum.PAIN, 0, 1000));
+        this.getListShelf().get(11).addItem(new Item(ItemEnum.OTHER, 0, 1000));
     }
 
     public void addToListOrderFromCommand(Map<ItemEnum, Integer> command){
