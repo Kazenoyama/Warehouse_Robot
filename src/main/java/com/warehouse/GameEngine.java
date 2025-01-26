@@ -32,8 +32,9 @@ public class GameEngine {
     private Pos storagePos;
     private Pos deliveryPos;
     private ItemStorageInterface deliveryStorage;
-    private Map<Robot, List<Order>> pendingRobotOrder;
-    private DecisionMaker decisionMaker;
+    public Map<Robot, List<Order>> pendingRobotOrder;
+    public List<List<Order>> orderList;
+    public int maximumRobot = 4;
 
     public GameEngine(Integer[][] mapTiles){
         initVariables(mapTiles);
@@ -41,7 +42,7 @@ public class GameEngine {
         createWarehouseMap();
         createJFramePanel_And_Display();
         giveTilesCorrectType();
-        this.display.updateMapDisplayWithColor();     
+        this.display.updateMapDisplayWithColor();   
     }
 
     private void initVariables(Integer[][] mapTiles){
@@ -49,6 +50,8 @@ public class GameEngine {
         this.ListRobot = new ArrayList<>();
         this.ListShelf = new ArrayList<>();
         this.commandList = new ArrayList<>();
+        this.orderList = new ArrayList<>();
+        this.pendingRobotOrder = new HashMap<>();
     }
 
     private void createWarehouseMap(){
@@ -155,6 +158,125 @@ public class GameEngine {
         this.commandList.remove(index);
     }
 
+    private ItemStorageInterface findShelfWithItem(ItemEnum item){
+        for (ItemStorageInterface shelf : this.ListShelf){
+            if(shelf.contains(item)){
+                return shelf;
+            }
+        }
+        return null;
+    }
+
+    private void instantiateShelfWithItem(){
+        this.getListShelf().get(1).addItem(new Item(ItemEnum.FOOD, 0, 10));
+        this.getListShelf().get(2).addItem(new Item(ItemEnum.DRINK, 0, 10));
+        this.getListShelf().get(3).addItem(new Item(ItemEnum.ELECTRONICS, 0, 10));
+        this.getListShelf().get(4).addItem(new Item(ItemEnum.CLOTHES, 0, 10));
+        this.getListShelf().get(5).addItem(new Item(ItemEnum.TOYS, 0, 10));
+        this.getListShelf().get(6).addItem(new Item(ItemEnum.TOOLS, 0, 10));
+        this.getListShelf().get(7).addItem(new Item(ItemEnum.FURNITURE, 0, 10));
+        this.getListShelf().get(8).addItem(new Item(ItemEnum.COMPUTER, 0, 10));
+        this.getListShelf().get(9).addItem(new Item(ItemEnum.DENTIFRICE, 0, 10));
+        this.getListShelf().get(10).addItem(new Item(ItemEnum.PAIN, 0, 10));
+        this.getListShelf().get(11).addItem(new Item(ItemEnum.OTHER, 0, 10));
+    }
+
+    public void addToListOrderFromCommand(Map<ItemEnum, Integer> command){
+        List<Order> orderFromCommand = new ArrayList<>();
+        for (ItemEnum item : command.keySet()){
+            for (ItemStorageInterface shelf : ListShelf){
+                if(shelf.contains(item)){
+                    orderFromCommand.add(new Order(item, shelf, deliveryStorage));
+                    break;
+                }
+            }
+        }
+        orderList.add(orderFromCommand);
+    }
+
+    public void runNextOrderInList(){
+        for (Robot robot : this.ListRobot){
+            if(pendingRobotOrder.containsKey(robot) 
+            && pendingRobotOrder.get(robot).size() >= 2){
+                RobotCommand command = new TransferItemCommand(robot, pendingRobotOrder.get(robot).get(1));
+                if(command.execute()){
+                    pendingRobotOrder.get(robot).remove(0);
+                }
+            }
+            else if(pendingRobotOrder.containsKey(robot) && pendingRobotOrder.get(robot).size() <= 1 && robot.getPosition().y == storagePos.y - 1 && robot.getPosition().x == storagePos.x){
+                pendingRobotOrder.remove(robot);
+            }
+        }
+    }
+
+    public void randomOrder(){
+        int random = (int)(Math.random() * 4);
+        switch(random){
+            case 0:
+                addCommand(List.of(ItemEnum.FOOD), List.of(1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+            case 1:
+                addCommand(List.of(ItemEnum.DRINK, ItemEnum.TOYS), List.of(1,1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+            case 2:
+                addCommand(List.of(ItemEnum.FOOD, ItemEnum.TOOLS), List.of(1,1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+            case 3:
+                addCommand(List.of(ItemEnum.FOOD, ItemEnum.TOYS, ItemEnum.TOOLS), List.of(1,1,1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+            case 4:
+                addCommand(List.of(ItemEnum.FOOD, ItemEnum.TOOLS, ItemEnum.CLOTHES, ItemEnum.DRINK), List.of(1,1,1,1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+            default:
+                addCommand(List.of(ItemEnum.FOOD, ItemEnum.TOOLS, ItemEnum.CLOTHES, ItemEnum.DRINK, ItemEnum.TOYS), List.of(1,1,1,1,1));
+                addToListOrderFromCommand(commandList.get(commandList.size() - 1));
+                break;
+        }
+    }
+
+    public void start(DecisionMaker decisionMaker){
+        instantiateShelfWithItem();
+
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+        randomOrder();
+
+        run(decisionMaker);
+    }
+
+    public void run(DecisionMaker decisionMaker){
+        int i = 0;
+        while (i < 200){
+            try{Thread.sleep(200);
+                runNextOrderInList();
+                decisionMaker.giveTaskDelevery();
+                for (Robot robot : this.ListRobot){
+                    robot.update();
+                }
+                updateRobotPosition();
+                i++;
+            }
+            catch(InterruptedException e){System.out.println(e);}
+        }
+  
+    }
+
     public List<ItemStorageInterface> getListShelf(){
         return this.ListShelf;
     }
@@ -167,75 +289,8 @@ public class GameEngine {
         return this.deliveryPos;
     }
 
-    public void executeMoveFromPendingOrder(){
-        this.pendingRobotOrder = this.decisionMaker.getPendingRobotOrder();
-        for (Robot robot : this.pendingRobotOrder.keySet()) {
-            List<Order> orders = this.pendingRobotOrder.get(robot);
-            if (orders != null && !orders.isEmpty()) {
-                Order order = orders.remove(0);
-                RobotCommand command = new TransferItemCommand(robot, order);
-                command.execute();
-                if (orders.isEmpty()) {
-                    this.pendingRobotOrder.remove(robot);
-                }
-            }
-        }
-    }
-
     public ItemStorageInterface getDeliveryStorage(){
         return this.deliveryStorage;
     }
-
-    public void setDecisionMaker(DecisionMaker decisionMaker){
-        this.decisionMaker = decisionMaker;
-        decisionMaker.createListOrder();
-        decisionMaker.attributeOrderToRobot();
-    }
-
-    private void randomCommand(){
-        // int random = (int)(Math.random() * 3);
-        // if(random == 0){
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
-        // else if(random == 1){
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
-        // else{
-        //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        //     List<Integer> quantity = List.of(2, 3, 4);
-        //     this.addCommand(item, quantity);
-        // }
-
-        List<ItemEnum> item = List.of(ItemEnum.FOOD);
-        List<Integer> quantity = List.of(2);
-        this.addCommand(item, quantity);
-    }
-
-    public void start(){
-        this.addRobot(new Robot(new Pos(0,0), this.warehouseMap, 10));
-        Robot robot = this.ListRobot.get(0);
-        this.randomCommand();
-        this.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,5));
-        Order order = new Order(ItemEnum.FOOD, this.ListShelf.get(1), this.deliveryStorage);
-
-        RobotCommand command = new TransferItemCommand(robot, order);
-        command.execute();
-        robot.update();
-        this.display.updateMapDisplayWithColor();
-        
-    }
-
-    public void run(){
-  
-    }
-
-    
-
-
-
     
 }

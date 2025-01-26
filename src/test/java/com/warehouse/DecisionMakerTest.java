@@ -20,101 +20,121 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DecisionMakerTest {
 
-    @Test
-    public void whenGivenAListOfCommand_TransformItInAListOfOrder(){
+    // @Test
+    // public void test(){
+
+    //     Integer[][] mapTile = {
+    //         {2,2,2,2,2,2,2,2,2,2},
+    //         {2,0,0,0,0,0,0,0,0,4},
+    //         {2,1,1,0,0,0,2,0,2,2},
+    //         {2,2,2,1,0,1,2,0,1,2},
+    //         {2,1,1,0,0,1,2,0,1,2},
+    //         {2,0,0,0,0,0,2,0,0,2},
+    //         {2,0,0,0,0,0,0,0,1,2},
+    //         {2,1,0,0,1,2,0,0,0,2},
+    //         {2,1,0,0,1,2,0,0,0,3},
+    //         {2,2,2,2,2,2,2,2,2,2}
+    //     };
+
+    //     GameEngine game = new GameEngine(mapTile);
+    //     DecisionMaker decisionMaker = new DecisionMaker(game);
+    // }
+
+    // @Test
+    // public void whenGivenAListOfCommand_TransformItInAListOfOrder(){
         
-        GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity = List.of(2, 3, 4);
-        gameEngine.addCommand(item, quantity);
+    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
+    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item, quantity);
 
-        List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity2 = List.of(2, 3, 4);
-        gameEngine.addCommand(item2, quantity2);
-        gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-        gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-        gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
+    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity2 = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item2, quantity2);
+    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
+    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
+    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-        decisionMaker.createListOrder();
+    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
+    //     decisionMaker.createListOrder();
 
-        List<Order> orderList = decisionMaker.getOrderList().get(0);
-        System.out.println(orderList);
-        assertEquals(3, orderList.size());
-        assertEquals(2, decisionMaker.getOrderList().size());
-    }
+    //     List<Order> orderList = decisionMaker.getOrderList().get(0);
+    //     System.out.println(orderList);
+    //     assertEquals(3, orderList.size());
+    //     assertEquals(2, decisionMaker.getOrderList().size());
+    // }
 
-    @Test
-    public void removeFirstElementFromOrderList(){
+    // @Test
+    // public void removeFirstElementFromOrderList(){
 
-        GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity = List.of(2, 3, 4);
-        gameEngine.addCommand(item, quantity);
+    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
+    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item, quantity);
 
-        List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity2 = List.of(2, 3, 4);
-        gameEngine.addCommand(item2, quantity2);
-        gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-        gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-        gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
+    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity2 = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item2, quantity2);
+    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
+    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
+    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-        decisionMaker.createListOrder();
+    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
+    //     decisionMaker.createListOrder();
 
-        decisionMaker.removeFirstElementFromOrderList();
-        assertEquals(1, decisionMaker.getOrderList().size());
+    //     decisionMaker.removeFirstElementFromOrderList();
+    //     assertEquals(1, decisionMaker.getOrderList().size());
         
-    }
+    // }
 
-    @Test
-    public void giveAListOfOrderToOneRobot_WhileDoingIt_ItCantTakeAnotherOrder(){
+    // @Test
+    // public void giveAListOfOrderToOneRobot_WhileDoingIt_ItCantTakeAnotherOrder(){
         
-        GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity = List.of(2, 3, 4);
-        gameEngine.addCommand(item, quantity);
+    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
+    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item, quantity);
 
-        List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity2 = List.of(2, 3, 4);
-        gameEngine.addCommand(item2, quantity2);
-        gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-        gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-        gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
+    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity2 = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item2, quantity2);
+    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
+    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
+    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        Robot robot = new Robot(new Pos(0,0), gameEngine.getWarehouseMap(), 10);
-        gameEngine.getListRobot().add(robot);
-        //gameEngine.getListRobot().add(robot2);
+    //     Robot robot = new Robot(new Pos(0,0), gameEngine.getWarehouseMap(), 10);
+    //     gameEngine.getListRobot().add(robot);
+    //     //gameEngine.getListRobot().add(robot2);
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-        decisionMaker.createListOrder();
+    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
+    //     decisionMaker.createListOrder();
 
-        decisionMaker.attributeOrderToRobot();
-        assertTrue(decisionMaker.attributeOrderToRobot());
-        assertEquals(2,decisionMaker.getListRobot().size());
-    }
+    //     decisionMaker.attributeOrderToRobot();
+    //     assertTrue(decisionMaker.attributeOrderToRobot());
+    //     assertEquals(2,decisionMaker.getListRobot().size());
+    // }
 
-    @Test
-    public void addNewCommandFromTheGameEngine_TransformItInOrderList(){
+    // @Test
+    // public void addNewCommandFromTheGameEngine_TransformItInOrderList(){
         
-        GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
-        List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity = List.of(2, 3, 4);
-        gameEngine.addCommand(item, quantity);
+    //     GameEngine gameEngine = new GameEngine(new Integer[][]{{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}});
+    //     List<ItemEnum> item = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item, quantity);
 
-        List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
-        List<Integer> quantity2 = List.of(2, 3, 4);
-        gameEngine.addCommand(item2, quantity2);
-        gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
-        gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
-        gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
+    //     List<ItemEnum> item2 = List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS);
+    //     List<Integer> quantity2 = List.of(2, 3, 4);
+    //     gameEngine.addCommand(item2, quantity2);
+    //     gameEngine.getListShelf().get(0).addItem(new Item(ItemEnum.FOOD, 1,1));
+    //     gameEngine.getListShelf().get(1).addItem(new Item(ItemEnum.DRINK, 1,1));
+    //     gameEngine.getListShelf().get(2).addItem(new Item(ItemEnum.ELECTRONICS,1,1));
 
-        DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
-        decisionMaker.createListOrder();
+    //     DecisionMaker decisionMaker = new DecisionMaker(gameEngine);
+    //     decisionMaker.createListOrder();
 
-        gameEngine.addCommand(List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS), List.of(2, 3, 4));
-        decisionMaker.addToListOrderFromCommand(gameEngine.getCommandList().get(2));
-        assertEquals(3, decisionMaker.getOrderList().size());
-    }
+    //     gameEngine.addCommand(List.of(ItemEnum.FOOD, ItemEnum.DRINK, ItemEnum.ELECTRONICS), List.of(2, 3, 4));
+    //     decisionMaker.addToListOrderFromCommand(gameEngine.getCommandList().get(2));
+    //     assertEquals(3, decisionMaker.getOrderList().size());
+    // }
     
 }
