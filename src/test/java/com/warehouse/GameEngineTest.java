@@ -27,7 +27,7 @@ public class GameEngineTest {
     public void shouldWeHadARobotInListRobot_itAppearOnJPanel_ThenWeDeleteIt() throws InterruptedException {
         Integer[][] mapTiles = {{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}};
         GameEngine gameEngine = new GameEngine(mapTiles);
-        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap());
+        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap(), 100);
         gameEngine.addRobot(robot);
         assertNotNull(gameEngine.getListRobot());
         //Thread.sleep(2000);
@@ -45,7 +45,7 @@ public class GameEngineTest {
     public void robotMovingAroundTheWarehouse() throws InterruptedException {
         Integer[][] mapTiles = {{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}};
         GameEngine gameEngine = new GameEngine(mapTiles);
-        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap());
+        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap(), 100);
         gameEngine.addRobot(robot);
         assertNotNull(gameEngine.getListRobot());
 
@@ -73,11 +73,11 @@ public class GameEngineTest {
     public void cantAddMoreThanOneRobotOnTheSamePosition() throws InterruptedException {
         Integer[][] mapTiles = {{1, 1, 1}, {1, 2, 1}, {1, 1, 1},{1, 3, 2}};
         GameEngine gameEngine = new GameEngine(mapTiles);
-        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap());
+        Robot robot = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap(), 100);
         gameEngine.addRobot(robot);
         assertNotNull(gameEngine.getListRobot());
 
-        Robot robot2 = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap());
+        Robot robot2 = new Robot(new Pos(0, 0), gameEngine.getWarehouseMap(), 100);
         assertFalse(gameEngine.addRobot(robot2));
         assertEquals(1, gameEngine.getListRobot().size());
         //Thread.sleep(2000);
