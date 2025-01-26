@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import java.util.HashMap;
+
 public class DecisionMaker {
 
     private List<Robot> ListRobot;
     private List<ItemStorageInterface> ListShelf;
     private List<Map<ItemEnum, Integer>> commandList;
     private List<List<Order>> orderList;
+    private Map<Robot, List<Order>> pendingRobotOrder;
     private Pos storagePos;
     private Pos deliveryPos;
     private ItemStorageInterface deliveryStorage;
@@ -30,14 +33,17 @@ public class DecisionMaker {
         this.deliveryPos = deliveryPos;
         this.deliveryStorage = deliveryStorage;
         this.orderList = new ArrayList<>();
+        this.pendingRobotOrder = new HashMap<>();
     }
 
     private boolean askRobot(Robot robot){
+        if(pendingRobotOrder.containsKey(robot)){
+            return false;
+        }
         return true;
     }
 
     public void createListOrder(){
-        
         for (Map<ItemEnum, Integer> command : commandList){
             List<Order> orderFromCommand = new ArrayList<>();
             for (ItemEnum item : command.keySet()){
@@ -56,11 +62,23 @@ public class DecisionMaker {
         orderList.remove(0);
     }
 
+    public boolean attributeOrderToRobot(){
+        for (Robot robot : ListRobot){
+            if(askRobot(robot)){
+                pendingRobotOrder.put(robot, orderList.get(0));
+                removeFirstElementFromOrderList();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<List<Order>> getOrderList(){
         return orderList;
     }
 
-
-
+    public Map<Robot, List<Order>> getPendingRobotOrder(){
+        return pendingRobotOrder;
+    }
     
 }
