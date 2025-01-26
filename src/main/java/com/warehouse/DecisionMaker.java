@@ -1,20 +1,13 @@
 package com.warehouse;
 
-import com.warehouse.Item.ItemEnum;
 import com.warehouse.Map.Pos;
 import com.warehouse.Robot.Order;
 import com.warehouse.Robot.Robot;
-import com.warehouse.Storage.ItemStorageInterface;
-import com.warehouse.Storage.infiniteStorageSize;
 import com.warehouse.Robot.RobotCommand;
 import com.warehouse.Robot.TransferItemCommand;
 
-import java.awt.RenderingHints.Key;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import java.util.HashMap;
 
 public class DecisionMaker {
 
@@ -49,6 +42,10 @@ public class DecisionMaker {
             Robot robot = new Robot(new Pos(1,1), game.getWarehouseMap(), 1);
             game.addRobot(robot);
         }
+    }
+
+    public GameEngine getGame(){
+        return game;
     }
 
 }
