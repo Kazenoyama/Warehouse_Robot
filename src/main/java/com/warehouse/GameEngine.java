@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import java.util.Map;
 import java.util.HashMap;
 
+
+import com.warehouse.Item.*;
 import com.warehouse.Map.Pos;
 import com.warehouse.Map.TileEnum;
 import com.warehouse.Map.WarehouseMap;
@@ -12,6 +14,7 @@ import com.warehouse.Robot.Robot;
 import com.warehouse.Storage.ItemStorageInterface;
 import com.warehouse.Storage.infiniteStorageSize;
 import com.warehouse.Storage.ItemShelf; 
+
 
 import java.util.ArrayList;
 
@@ -21,20 +24,26 @@ public class GameEngine {
     private List<Robot> ListRobot;
     private Integer[][] mapTiles;
     private List<ItemStorageInterface> ListShelf;
+    private List<Map<ItemEnum, Integer>> commandList;
     private Display display;
     private JFrame frame;
     private Pos storagePos;
     private Pos deliveryPos;
 
     public GameEngine(Integer[][] mapTiles){
-        this.mapTiles = mapTiles;
-        this.ListRobot = new ArrayList<>();
-        this.ListShelf = new ArrayList<>();
+        initVariables(mapTiles);
         
         createWarehouseMap();
         createJFramePanel_And_Display();
         giveTilesCorrectType();
         this.display.updateMapDisplayWithColor();     
+    }
+
+    private void initVariables(Integer[][] mapTiles){
+        this.mapTiles = mapTiles;
+        this.ListRobot = new ArrayList<>();
+        this.ListShelf = new ArrayList<>();
+        this.commandList = new ArrayList<>();
     }
 
     private void createWarehouseMap(){
@@ -126,6 +135,18 @@ public class GameEngine {
     public boolean disposeOfJFrame(){
         this.frame.dispose();
         return true;
+    }
+
+    public void addCommand(List<ItemEnum> item, List<Integer> quantity){
+        commandList.add(ItemCommandList.ItemCommandListCreate(item, quantity));
+    }
+
+    public List<Map<ItemEnum, Integer>> getCommandList(){
+        return this.commandList;
+    }
+
+    public void removeCommand(int index){
+        this.commandList.remove(index);
     }
 
     public List<ItemStorageInterface> getListShelf(){
