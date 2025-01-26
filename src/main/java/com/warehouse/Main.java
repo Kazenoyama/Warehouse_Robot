@@ -1,18 +1,5 @@
 package com.warehouse;
 
-import javax.swing.JFrame;
-
-import com.warehouse.Item.Item;
-import com.warehouse.Item.ItemEnum;
-import com.warehouse.Map.Pos;
-import com.warehouse.Map.TileEnum;
-import com.warehouse.Map.WarehouseMap;
-import com.warehouse.Robot.Robot;
-import com.warehouse.Robot.RobotCommand;
-import com.warehouse.Robot.TransferItemCommand;
-import com.warehouse.Storage.ItemStorageInterface;
-import com.warehouse.Storage.infiniteStorageSize;
-
 public class Main {
     public static void main(String[] args) {
         
@@ -30,11 +17,8 @@ public class Main {
         };
 
         GameEngine game = new GameEngine(mapTile);
-        
-        //game.start();
+        DecisionMaker decisionMaker = new DecisionMaker(game);
 
-
-
-
+        game.start(decisionMaker);
     } 
 }
