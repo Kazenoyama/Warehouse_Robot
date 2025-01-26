@@ -90,9 +90,8 @@ public class Robot {
     }
 
     private void moveTowards(){
-        if(path.size() > 1)
+        if(path != null && path.size() > 1)
             this.position = path.remove(1); //1 because the first element is the current position in case we cannot move
-
     }
 
     public Pos getPosition() {

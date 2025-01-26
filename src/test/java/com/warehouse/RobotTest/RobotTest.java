@@ -11,6 +11,8 @@ import com.warehouse.Map.TileEnum;
 import com.warehouse.Map.WarehouseMap;
 import com.warehouse.Robot.Order;
 import com.warehouse.Robot.Robot;
+import com.warehouse.Robot.RobotCommand;
+import com.warehouse.Robot.TransferItemCommand;
 import com.warehouse.Storage.ItemShelf;
 import com.warehouse.Storage.ItemStorageInterface;
 import com.warehouse.Storage.infiniteStorageSize;
@@ -191,6 +193,25 @@ public class RobotTest {
         robot.update();
         assertEquals(5, storage.getNumberOfItemInStorage(ItemEnum.CLOTHES));
         assertEquals(null, robot.getItemInHand());
+    }
+
+    @Test
+    public void testCommandInterface(){
+        WarehouseMap map = new WarehouseMap(5, 5);
+        map.changeTileType(0, 0, TileEnum.SHELF);
+        map.changeTileType(0, 2, TileEnum.SHELF);
+        ItemStorageInterface storage = new infiniteStorageSize(new Pos(0, 0));
+        storage.addItem(new Item(ItemEnum.CLOTHES, 0, 5));
+        ItemStorageInterface storage2 = new infiniteStorageSize(new Pos(0, 2));
+        Robot robot = new Robot(new Pos(0, 1), map, 5);
+
+        RobotCommand command = new TransferItemCommand(robot, ItemEnum.CLOTHES, storage, storage2);
+        command.execute();
+        robot.update();
+        robot.update();
+        assertEquals(5, storage2.getNumberOfItemInStorage(ItemEnum.CLOTHES));
+
+        
     }
 
 }
